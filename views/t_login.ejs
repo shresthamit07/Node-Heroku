@@ -1,0 +1,50 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/t_register.js"></script>
+     <% include t_header.ejs %>
+ </head>
+<title></title>
+<!-- login-page -->
+<div class="login">
+	<div class="container">
+		<div class="login-grids">
+			<div class="col-md-6 log">
+				<% if (typeof success_msg !== 'undefined') { %>
+					<div class="alert alert-success" id='success_alert'><%= success_msg%></div>
+				<% } %>
+					 <h3>Login</h3>
+					 <div class="strip"></div>
+					 <p>Welcome, please enter the following to continue.</p>
+					 <form>
+						 <h5>User Name:</h5>	
+						 <input type="text" value="">
+						 <h5>Password:</h5>
+						 <input type="password" value="">					
+						 <input type="submit" value="Login">
+						  
+					 </form>
+					<a href="#">Forgot Password ?</a>
+			</div>
+			<div class="col-md-6 login-right">
+					<h3>NOT REGISTERED YET !!!</h3>
+					<div class="strip"></div>
+					<p></p>
+					<a href="register" class="button">Create An Account</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+	<% include t_footer.ejs%>
+</body>
+</html>

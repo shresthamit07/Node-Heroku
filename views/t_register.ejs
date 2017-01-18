@@ -12,7 +12,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/t_register.js"></script>
-     <% include t_header.ejs%>
+     <% include t_header.ejs %>
+ </head>
 <title></title>
 
 	<div class="reg-form">
@@ -27,10 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div class="alert alert-danger"><%= errors[i].msg%></div>
 					<% } %>
 				<% } %>
-
-				<% if (typeof success_msg !== 'undefined') { %>
-					<div class="alert alert-success" id='success_alert'><%= success_msg%></div>
-				<% } %>
+				
 				 <form id='register_form' action='/register' method='post'>
 					<ul id='form_contents'>
 						<li class="text-info">First Name*: </li>
@@ -64,7 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 	<div id='login_prompt'>
-	<p> Already a member? <a href='login.ejs'> Login</a>
+	<p> Already a member? <a href='login'> Login</a>
 
 	</p>
 	</div>

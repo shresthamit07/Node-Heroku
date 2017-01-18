@@ -2,7 +2,7 @@
 var express = require('express')
   , router = express.Router()
   , validator = require('express-validator');
-var flash = require('connect-flash');
+// var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 
 
@@ -17,7 +17,6 @@ client.connect();
  router.get('/register', function(req, res) {// render the page and pass in any flash data if it exists
  		res.render('t_register');
  	});
-
 
 router.post('/register', function(req, res) {
 	var results = [];
@@ -48,11 +47,14 @@ router.post('/register', function(req, res) {
   			console.log('Query error: ' + err.code);
 			});
 			query.on('end', function(){
-				res.render('t_register.ejs', {success_msg: 'You are registered and can now login'});
+				res.render('t_login.ejs', {success_msg: 'You are registered and can now login'});
 				// req.flash('success_msg', 'You are registered and can now login')
 			})  
 	 }
 });
 
+router.get('/login', function(req, res) {// render the page and pass in any flash data if it exists
+ 		res.render('t_login.ejs');
+ 	});
 
  module.exports = router

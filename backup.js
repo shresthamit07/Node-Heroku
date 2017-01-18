@@ -2,13 +2,21 @@
 var express = require('express');
 var flash = require('connect-flash');
 var app = module.exports = express();
+// var bodyParser = require('body-parser')
+// var expressValidator = require('express-validator');
+// app.use( bodyParser()); 
+// app.use(expressValidator([options]));
+
 
 app.use(flash());
+// var express = require('express');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
 app.use(bodyParser());
 app.use(validator());
 
+
+// var router = express.Router();
 var path = __dirname + '/views/';
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -20,6 +28,8 @@ app.use(require('./controllers'))
 app.set('view engine', 'ejs');
 
 app.use(flash());
+
+// app.use("/public", express.static(path +'/public/'));
 app.use(express.static(__dirname + '/public'));
 
 
@@ -78,3 +88,8 @@ app.get('/design', function(req, res){
 app.listen(3000, function() {
   console.log('listening on 3000')
 });
+
+
+// app.get('/', function(req, res) {
+//   res.sendFile(path + 'index.html')
+// })
