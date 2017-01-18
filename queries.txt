@@ -1,0 +1,16 @@
+// INSERT INTO photo (description, filepath, album_id) VALUES ($1,$2,$3)
+// INSERT INTO cust (cust_id, cust_name, email, password) VALUES (1, 'Amit Shrestha', 'a2shrestha@student.bridgew.edu', 'testpassword');
+// SELECT * FROM "cust"
+
+
+//For bootstrap
+npm install bootstrap@3
+npm install jquery
+var $ = require('jquery');
+require('bootstrap');
+
+//list table names
+SELECT table_name
+  FROM information_schema.tables
+ WHERE table_schema='public'
+   AND table_type='BASE TABLE';

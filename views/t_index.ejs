@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+<!-- start menu -->
+<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="js/megamenu.js"></script>
+<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+<script src="js/menu_jquery.js"></script>
+<script src="js/simpleCart.min.js"> </script>
+<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+</head>
+	
+<body>
+<!-- top-header -->
+<div class="top_bg">
+	<div class="container">
+		<div class="header_top-sec">
+			<div class="top_right">
+				<ul>
+					<li><a href="contact.html">Contact</a></li>|
+					<li><a href="login.html">Track Order</a></li>
+				</ul>
+			</div>
+			<div class="top_left">
+				<ul>
+					<li><a  class="top_link" href="#">Register</a>|
+					<li><a  class="top_link" href="#">Login</a>
+					<!-- <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
+					<li class="top_link"><a href="login.html">My Account</a></li> -->					
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<!-- top-header -->
+<!-- logo-cart -->
+<div class="header_top">
+	<div class="container">
+		<div class="logo">
+		 	<a href="index.html">Bridgewater Liquor Store</a>			 
+		</div>
+		<div class="header_right">
+			<div class="cart box_1">
+				<a href="checkout.html">
+				<h3> <div class="total">
+					<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
+					<img src="images/cart1.png" alt=""/></h3>
+				</a>
+				<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+				<div class="clearfix"> </div>
+			</div>				 
+		</div>
+		<div class="clearfix"></div>	
+	</div>
+</div>
+<!-- //logo-cart -->
+<!------>
+<div class="mega_nav">
+	 <div class="container">
+		 <div class="menu_sec">
+		 <!-- start header menu -->
+		<ul class="megamenu skyblue">
+			<li class="active grid"><a class="color1" href="index.html">Home</a></li>
+			<li class="grid"><a class="color1" href="#">Products</a>
+				<div class="megapanel">
+					<div class="row">
+						<div class="col1">
+							<div class="h_nav">
+								<h4>Popular Brands</h4>
+								<ul>
+									<li><a href="products.html">Cabernet Sauv</a></li>
+									<li><a href="products.html">Merlot</a></li>
+									<li><a href="products.html">Pinot Noir</a></li>
+									<li><a href="products.html">Chardonnay</a></li>
+									<li><a href="products.html">Sauvignon Blanc</a></li>									
+									<li><a href="products.html">Malbec</a></li>
+								</ul>	
+							</div>							
+						</div>
+			<li><a class="color1" href="#">About Us</a>
+			</li>				
+			<li><a class="color1" href="#">Contact Us</a>
+			</li>				
+			<!-- <li><a  class="color1" href="#">Register</a>
+			<li><a  class="color1" href="#">Login</a> -->
+			</li>								
+		</ul> 
+			<div class="search">
+				 <form>
+					<input type="text" value="" placeholder="Search...">
+					<input type="submit" value="">
+					</form>
+			</div>
+			<div class="clearfix"></div>
+		 </div>
+	  </div>
+</div>
+<!---->
+<!-- banner -->
+	<div class="banner">
+		<div class="container">
+<!-- Slider-starts-Here -->
+				<script src="js/responsiveslides.min.js"></script>
+				 <script>
+				    // You can also use "$(window).load(function() {"
+				    $(function () {
+				      // Slideshow 4
+				      $("#slider3").responsiveSlides({
+				        auto: true,
+				        pager: false,
+				        nav: true,
+				        speed: 500,
+				        namespace: "callbacks",
+				        before: function () {
+				          $('.events').append("<li>before event fired.</li>");
+				        },
+				        after: function () {
+				          $('.events').append("<li>after event fired.</li>");
+				        }
+				      });
+				
+				    });
+				  </script>
+			<!--//End-slider-script -->
+			<div  id="top" class="callbacks_container">
+				<ul class="rslides" id="slider3">
+					<li>
+						<div class="banner-info">
+							<div class="banner-info1">
+								<div class="banner-inf">
+									<!-- <img src="../images/slide1.jpg"> -->
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="banner-info">
+							<div class="banner-info1">
+								<div class="banner-inf">
+								<!-- <img src="../images/slide2.jpg"> -->
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="banner-info">
+							<div class="banner-info1">
+								<div class="banner-inf">
+								<!-- <img src="../images/slide3.jpg"> -->
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- banner-bottom -->
+	<!-- <div class="banner-bottom">
+		<div class="container">
+			<div class="product-one">
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/3-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/2-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/4-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">							
+							<a href="single.html">
+								<img src="images/5-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+							</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="product-one">
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">							
+							<a href="single.html">
+								<img src="images/7-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+							</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/13-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/9-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 product-left"> 
+					<div class="p-one simpleCart_shelfItem jwe">
+						<a href="single.html">
+								<img src="images/10-.jpg" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
+								</div>
+						</a>
+						<div class="product-left-cart">
+							<div class="product-left-cart-l">
+								<p><a class="item_add" href="#"><i></i> <span class=" item_price">$729</span></a></p>
+							</div>
+							<div class="product-left-cart-r">
+								<a href="#"> </a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	
+<!-- //footer -->
+</body>
+</html>

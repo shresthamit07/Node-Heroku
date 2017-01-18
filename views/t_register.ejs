@@ -1,0 +1,73 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/t_register.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/t_register.js"></script>
+     <% include t_header.ejs%>
+<title></title>
+
+	<div class="reg-form">
+		<div class="container">
+			<div class="reg">
+				<h3>Register Now</h3>
+				<h4 class='topic'> Personal Details</h4>
+				<br/>
+				<p>* All fields are required</p>
+				<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+				<% for(var i=0; i < errors.length; i++) { %>
+						<div class="alert alert-danger"><%= errors[i].msg%></div>
+					<% } %>
+				<% } %>
+
+				<% if (typeof success_msg !== 'undefined') { %>
+					<div class="alert alert-success" id='success_alert'><%= success_msg%></div>
+				<% } %>
+				 <form id='register_form' action='/register' method='post'>
+					<ul id='form_contents'>
+						<li class="text-info">First Name*: </li>
+						<li><input type="text" value="" title = 'Please enter first name' name='first_name' required oninvalid="this.setCustomValidity()"></li>
+					</ul>
+					<ul>
+						<li class="text-info">Last Name*: </li>
+						<li><input type="text" value="" title = 'Please enter last name' name='last_name' required></li>
+					 </ul>				 
+					<ul>
+						<li class="text-info">Email*: </li>
+						<li><input type="email" value="" title = 'Please enter valid email' name='email' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Password*: </li>
+						<li><input type="password" id='password' value="" title = 'Please enter password' name='password' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Mobile Number*:</li>
+						<li><input type="number" value=""  title = 'Please enter valid mobile number' name='m_number' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Address Line*:</li>
+						<li><input class='user_address' placeholder='Enter full address with zip code' type="text" value=""  title = 'Please enter address' name='address' required></li>
+					</ul>						
+					<input type="checkbox" name="agreement" id="agree" required /> By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a>
+					</br>
+					<input type="submit" value="Register Now" id='register_btn'>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id='login_prompt'>
+	<p> Already a member? <a href='login.ejs'> Login</a>
+
+	</p>
+	</div>
+	<% include t_footer.ejs%>
+</body>
+</html>

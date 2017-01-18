@@ -1,0 +1,31 @@
+exit
+\q
+CREATE DATABASE blog
+\s blog
+\d blog
+\c blog
+exit
+\1
+\?
+\q
+\list
+CREATE DATABASE blog;
+\c blog
+\d
+\d
+exit
+\q
+\q
+CREATE DATABASE Testdb
+createdb Testdb
+exit
+\q
+CREATE DATABASE test
+\c test
+\list
+createdb test
+\c test
+CREATE DATABASE test
+CREATE DATABASE test;
+CREATE DATABASE test
+\s blog

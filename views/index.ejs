@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <% include t_header.ejs%>
+
+    	
+      <meta charset="UTF-8">
+      <title>MY APP</title>
+    </head>
+<body>
+ <!--Shopping Cart table-->
+<div class="table-responsive">
+    <table class="table product-table">
+        <!--Table head-->
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <!--/Table head-->
+
+        <!--Table body-->
+        <tbody>
+
+            <!--First row-->
+           <% for(var i=0; i < data.length; i++) { %>
+           	<tr>
+                <th scope="row"></th>
+                <td><%= data[i].cust_name%></td>
+                <td>38</td>
+           <% } %>
+            <tr>
+                <th scope="row">
+                    <img src="http://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/shoes.jpg" alt="" class="img-fluid">
+                </th>
+                <td>
+                    <h5><strong>Sportswear</strong></h5>
+                    <p class="text-muted">by FifeSteps</p>
+                </td>
+                <td>Blue</td>
+                <td>38</td>
+                <td>200 $</td>
+                <td>
+                    <span class="qty">1 </span>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option1">&mdash;
+                        </label>
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option2">+
+                        </label>
+                    </div>
+                </td>
+                <td>200 $</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Remove item">X
+                    </button>
+                </td>
+            </tr>
+            <!--/First row-->
+
+            <!--Second row-->
+            <tr>
+                <th scope="row">
+                    <img src="http://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/sweater.jpg" alt="" class="img-fluid">
+                </th>
+                <td>
+                    <h5><strong>Striped sweater</strong></h5>
+                    <p class="text-muted">by FifeSteps</p>
+                </td>
+                <td>Blue</td>
+                <td>L</td>
+                <td>200 $</td>
+                <td>
+                    <span class="qty">3 </span>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option1">&mdash;
+                        </label>
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option2">+
+                        </label>
+                    </div>
+                </td>
+                <td>600 $</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Remove item">X
+                    </button>
+                </td>
+            </tr>
+            <!--/Second row-->
+
+            <!--Third row-->
+            <tr>
+                <th scope="row">
+                    <img src="http://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/tie.jpg" alt="" class="img-fluid">
+                </th>
+                <td>
+                    <h5><strong>Elegant tie</strong></h5>
+                    <p class="text-muted">by FifeSteps</p>
+                </td>
+                <td>Blue</td>
+                <td>M</td>
+                <td>200 $</td>
+                <td>
+                    <span class="qty">2 </span>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option1">&mdash;
+                        </label>
+                        <label class="btn btn-sm btn-primary btn-rounded">
+                            <input type="radio" name="options" id="option2">+
+                        </label>
+                    </div>
+                </td>
+                <td>400 $</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Remove item">X
+                    </button>
+                </td>
+            </tr>
+            <!--/Third row-->
+
+            <!--Fourth row-->
+            <tr>
+                <td colspan="3"></td>
+                <td>
+                    <h4><strong>Total</strong></h4></td>
+                <td>
+                    <h4><strong>1200 $</strong></h4></td>
+                <td colspan="3"><button type="button" class="btn btn-primary">Complete purchase  <i class="fa fa-angle-right right"></i></button></td>
+            </tr>
+            <!--/Fourth row-->
+
+        </tbody>
+        <!--/Table body-->
+    </table>
+</div>
+<!--/Shopping Cart table-->
+
+</body>
+</html>

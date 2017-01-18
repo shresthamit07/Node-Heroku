@@ -1,0 +1,49 @@
+#login_prompt{
+padding: 1em 0 0 5.3em;
+font-weight: 700;
+font-size: 13px;
+color: #848484;
+ font-family: Helvetica;
+}
+
+.reg-form{
+	padding: 2em 0 0 !important;
+}
+#register_btn{
+	margin-top: 35px;
+}
+.reg form input[type="email"], input[type='number']{
+width: 100%;
+padding: 8px;
+font-size: 14px;
+font-weight: 400;
+border: 1px solid #9b9b9e;
+outline: none;
+color: #000;
+}
+.user_address::-webkit-input-placeholder {
+	font-style: italic;
+  font-family: sans-serif;
+  color: #000 !important;
+}
+
+.user_address:-ms-input-placeholder {
+	font-style: italic;
+  font-family: sans-serif;
+  color: #000 !important;
+}
+
+.user_address:-moz-placeholder {
+	font-style: italic;
+  font-family: sans-serif;
+  color: #000 !important;
+}
+.user_address::-moz-placeholder {
+	font-style: italic;
+  font-family: sans-serif;
+  color: #000 !important;
+}
+.topic{
+	font-size: 1.5em;
+	color: #204056;
+}
