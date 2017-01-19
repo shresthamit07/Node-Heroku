@@ -20,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="login-grids">
 			<div class="col-md-6 log">
 				<% if (typeof success_msg !== 'undefined') { %>
-					<div class="alert alert-success" id='success_alert'><%= success_msg%></div>
+					<div class="alert alert-success" id='success_alert'><%= req.flash('success_msg')%></div>
 				<% } %>
 					 <h3>Login</h3>
 					 <div class="strip"></div>

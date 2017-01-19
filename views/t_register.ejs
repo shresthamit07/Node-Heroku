@@ -23,12 +23,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<h4 class='topic'> Personal Details</h4>
 				<br/>
 				<p>* All fields are required</p>
+				<% if (typeof error_msg !== 'undefined') { %>
+					<div class="alert alert-danger"><%= error_msg%></div>
+				<% } %>
 				<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
 				<% for(var i=0; i < errors.length; i++) { %>
 						<div class="alert alert-danger"><%= errors[i].msg%></div>
 					<% } %>
 				<% } %>
-				
+
 				 <form id='register_form' action='/register' method='post'>
 					<ul id='form_contents'>
 						<li class="text-info">First Name*: </li>

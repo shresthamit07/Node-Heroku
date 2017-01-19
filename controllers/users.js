@@ -2,7 +2,7 @@
 var express = require('express')
   , router = express.Router()
   , validator = require('express-validator');
-// var flash = require('connect-flash');
+var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 
 
@@ -45,11 +45,14 @@ router.post('/register', function(req, res) {
 	    [user.first_name, user.last_name, user.email, hashed_pwd, user.m_number, user.address]);	
 	    query.on('error', function(err) {
   			console.log('Query error: ' + err.code);
+  			return res.render('t_register', {error_msg: 'User already exists.'});
+
 			});
 			query.on('end', function(){
-				res.render('t_login.ejs', {success_msg: 'You are registered and can now login'});
+				res.redirect('/login');
 				// req.flash('success_msg', 'You are registered and can now login')
 			})  
+			// res.redirect('/login');
 	 }
 });
 
