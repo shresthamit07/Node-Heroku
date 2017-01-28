@@ -2,12 +2,17 @@
 var express = require('express');
 var flash = require('connect-flash');
 var app = module.exports = express();
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 app.use(flash());
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
 app.use(bodyParser());
 app.use(validator());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 var path = __dirname + '/views/';
 var passport = require('passport');

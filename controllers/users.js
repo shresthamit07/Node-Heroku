@@ -4,6 +4,8 @@ var express = require('express')
   , validator = require('express-validator');
 var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 
  // var db = require('.././db');
@@ -59,5 +61,60 @@ router.post('/register', function(req, res) {
 router.get('/login', function(req, res) {// render the page and pass in any flash data if it exists
  		res.render('t_login.ejs');
  	});
+
+//login post request
+router.post('/login',
+  passport.authenticate('local', {	successRedirect: '/',
+                                  	failureRedirect: '/login',
+                               		failureFlash: true})
+);
+
+
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy({
+	usernameField: 'email',
+    passwordField: 'password'
+},
+  function(username, password, done) {
+    client.query('SELECT * from users where email = $1', [username], function (err, result) {
+    	console.log(result.rows);
+    	if(err) { console.log('error');return next(err)}
+    	var user = result.rows
+    	//user is not found
+    	if(!user.length){
+    		console.log('user not found');
+    		return done(null, false, { message: 'Incorrect username.' });
+    	}
+    	//user is found
+    	else{
+    		console.log('user email found')
+    		if(validPassword(password, user[0].password)){
+    			console.log('valid password');
+    			return done(null, user[0]);
+    		}else{
+    			console.log('Invalid Username/password');
+    			return done(null, false, { message: 'Incorrect password.' });
+    		}
+    	}
+    });
+  }
+));
+
+var validPassword = function(password, hashFromDB){
+	console.log(password);
+	return bcrypt.compareSync(password, hashFromDB);
+}
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(err, user);
+});
+
+//end of login post request
 
  module.exports = router

@@ -25,11 +25,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					 <h3>Login</h3>
 					 <div class="strip"></div>
 					 <p>Welcome, please enter the following to continue.</p>
-					 <form>
-						 <h5>User Name:</h5>	
-						 <input type="text" value="">
+					 <form id='login_form' action='/login' method='post'>
+						 <h5>Email:</h5>	
+						 <input type="text" value="", name='email' required>
 						 <h5>Password:</h5>
-						 <input type="password" value="">					
+						 <input type="password" value="", name='password' required>					
 						 <input type="submit" value="Login">
 						  
 					 </form>
