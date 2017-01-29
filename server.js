@@ -2,6 +2,7 @@
 var express = require('express');
 var flash = require('connect-flash');
 var app = module.exports = express();
+var session = require('express-session');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -10,6 +11,12 @@ var bodyParser = require('body-parser');
 var validator = require('express-validator');
 app.use(bodyParser());
 app.use(validator());
+
+app.use(session({ secret: 'anything',
+    resave: true,
+    saveUninitialized: true,
+    cookie : { secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

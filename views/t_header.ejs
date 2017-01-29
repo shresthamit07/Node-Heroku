@@ -42,8 +42,14 @@
 			</div>
 			<div class="top_left">
 				<ul>
-					<li><a  class="top_link" href="register">Register</a>|
-					<li><a  class="top_link" href="login">Login</a>
+					<% if (typeof session != 'undefined' && session){%>
+						<li><a  class="top_link" href="register", id='<%id%>'><%=name%></a>|
+						<li><a  class="top_link" href="logout">Logout</a>
+					<% } else {%>
+						<li><a  class="top_link" href="register">Register</a>|
+						<li><a  class="top_link" href="login">Login</a>
+					<%}%>
+					<!-- <li><a  class="top_link" href="login">Login</a> -->
 					<!-- <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
 					<li class="top_link"><a href="login.html">My Account</a></li> -->					
 				</ul>
