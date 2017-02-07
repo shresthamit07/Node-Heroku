@@ -16,5 +16,21 @@ CREATE TABLE users (
     phone varchar NOT NULL,
     address varchar(100) NOT NULL,
     created_at timestamp default current_timestamp NOT NULL,
-    update_at timestamp default current_timestamp NOT NULL
+    updated_at timestamp default current_timestamp NOT NULL
+);
+
+CREATE TABLE products (
+	id SERIAL NOT NULL primary key unique,
+    name varchar(200) NOT NULL,
+    description text,
+    sku varchar(10) NOT NULL,
+    country varchar(50) NOT NULL,
+    category varchar(50) NOT NULL,
+    type varchar(50) NOT NULL,
+    price numeric(5,2) NOT NULL,
+    quantity int NOT NULL,
+    image varchar(100),
+    volume varchar(50) NOT NULL,
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
 );

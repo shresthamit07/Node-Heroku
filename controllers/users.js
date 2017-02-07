@@ -18,9 +18,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
  // var db = require('.././db');
-var DATABASE_URL = 'postgres://postgres:testpassword@localhost/test';
+var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpassword@localhost/test';
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpassword@localhost/liquorzone';
 
 var client = new pg.Client(connectionString);
 client.connect();
@@ -102,7 +102,6 @@ passport.use(new LocalStrategy({
 },
   function(username, password, done) {
     client.query('SELECT * from users where email = $1', [username], function (err, result) {
-    	console.log(JSON.stringify(result.rows[0]));
     	if(err) { console.log('error');return next(err)}
     	var user = result.rows
     	//user is not found
@@ -140,4 +139,7 @@ passport.deserializeUser(function(user, done) {
 
 //end of login post request
 
+router.get('/api', function(req, res) {// render the page and pass in any flash data if it exists
+	res.render('api');
+});
  module.exports = router
