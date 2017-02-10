@@ -17,7 +17,6 @@ var passport = require('passport')
 app.use(passport.initialize());
 app.use(passport.session());
 
- // var db = require('.././db');
 var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
 const pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpassword@localhost/liquorzone';
@@ -140,6 +139,23 @@ passport.deserializeUser(function(user, done) {
 //end of login post request
 
 router.get('/api', function(req, res) {// render the page and pass in any flash data if it exists
-	res.render('api');
+	var fs = require('fs');
+	var csv = require("fast-csv");
+	fs.createReadStream("cabernet_wines.csv")
+    .pipe(csv({ headers : true }))
+    .on("data", function(data){
+    	insert_item(data);
+
+    })
+    .on("end", function(){
+        console.log("done");
+        return;
+    });
 });
+
+var insert_item = function(row){
+	var query = client.query('INSERT INTO products(name, description, sku, country, category, type, price, quantity, image, volume) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
+	    [row.name, row.description, row.sku, row.country, row.category, row.type, row.price, row.quantity, row.image, row.volume]);	
+}
+
  module.exports = router

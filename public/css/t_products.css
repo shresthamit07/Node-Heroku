@@ -1,0 +1,15 @@
+.volume{
+	font-size: 13px;
+	font-style: italic;
+	font-family: initial;
+}
+.p_name{
+	white-space: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	padding: 3px;
+	margin: 0 auto;
+}
+.products-grd{
+	margin:0 4px !important;
+}

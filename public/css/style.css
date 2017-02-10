@@ -831,7 +831,7 @@ p.non span{
 	padding:6em 0px;
 }
 .p-one {
-	box-shadow:2px 2px 11px #CCCBCB;
+	box-shadow:0px 0px 4px #CCCBCB;
 	padding:1.5em 0 0;
 }
 .jwe a img {
@@ -839,6 +839,7 @@ p.non span{
 }
 .prd img {
   margin: 0 auto;
+  max-height: 150px;
 }
 .product-left:hover .p-one p a{
 	color: #8c2830;

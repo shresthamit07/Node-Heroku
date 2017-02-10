@@ -5,14 +5,14 @@
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
             function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- //for-mobile-apps -->
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!-- js -->
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery-1.11.1.min.js"></script>
     <!-- //js -->
     <!-- start-smoth-scrolling -->
-    <script type="text/javascript" src="js/move-top.js"></script>
-    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript" src="/js/move-top.js"></script>
+    <script type="text/javascript" src="/js/easing.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(".scroll").click(function(event){     
@@ -23,11 +23,11 @@
     </script>
     <!-- start-smoth-scrolling -->
     <!-- start menu -->
-    <link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="js/megamenu.js"></script>
+    <link href="/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/js/megamenu.js"></script>
     <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-    <script src="js/menu_jquery.js"></script>
-    <script src="js/simpleCart.min.js"> </script>
+    <script src="/js/menu_jquery.js"></script>
+    <script src="/js/simpleCart.min.js"> </script>
     <link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
  </head>
 <!-- top-header -->
@@ -43,11 +43,11 @@
 			<div class="top_left">
 				<ul>
 					<% if (typeof session != 'undefined' && session){%>
-						<li><a  class="top_link" href="register", id='<%id%>'><%=name%></a>|
-						<li><a  class="top_link" href="logout">Logout</a>
+						<li><a  class="top_link" href="/register", id='<%id%>'><%=name%></a>|
+						<li><a  class="top_link" href="/logout">Logout</a>
 					<% } else {%>
-						<li><a  class="top_link" href="register">Register</a>|
-						<li><a  class="top_link" href="login">Login</a>
+						<li><a  class="top_link" href="/register">Register</a>|
+						<li><a  class="top_link" href="/login">Login</a>
 					<%}%>
 					<!-- <li><a  class="top_link" href="login">Login</a> -->
 					<!-- <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
@@ -86,20 +86,24 @@
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li class="active grid"><a class="color1" href="index.html">Home</a></li>
+			<li class="active grid"><a class="color1" href="/">Home</a></li>
 			<li class="grid"><a class="color1" href="#">Products</a>
 				<div class="megapanel">
 					<div class="row">
 						<div class="col1">
 							<div class="h_nav">
+							<% var names = p_category.names; %>
 								<h4>Popular Brands</h4>
 								<ul>
-									<li><a href="products.html">Cabernet Sauv</a></li>
-									<li><a href="products.html">Merlot</a></li>
+								<% for(var i=0; i < names.length; i++) { %>
+									<li id= <%=names[i].category.split(' ').join('_')%>><a href="/products/<%= names[i].category.split(' ').join('_') %>"><%= names[i].category %></a></li>
+									<!-- <li><a href="products.html">Merlot</a></li>
 									<li><a href="products.html">Pinot Noir</a></li>
 									<li><a href="products.html">Chardonnay</a></li>
 									<li><a href="products.html">Sauvignon Blanc</a></li>									
 									<li><a href="products.html">Malbec</a></li>
+									-->
+								<% } %>
 								</ul>	
 							</div>							
 						</div>

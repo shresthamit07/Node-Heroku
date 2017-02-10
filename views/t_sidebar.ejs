@@ -1,0 +1,17 @@
+<div class="clearfix"> </div>
+	<div class="col-md-3 products-grid-lft">
+		<div class="w_sidebar">
+			<section  class="sky-form">
+				<h4>Country</h4>
+				<!-- <div class="row1 scroll-pane"> -->
+					<div class="col col-4">
+					<% var countries = data.map(function(a) {return a.country;}); %>
+						<%var uniq_countries = Array.from(new Set(countries)) %>
+					<% for(var i=0; i < uniq_countries.length; i++) { %>
+						<label class="checkbox"><a href="single.html" id='<%= uniq_countries[i]%>'><%= uniq_countries[i]%></a></label>
+						<% } %>
+					</div>
+				<!-- </div> -->
+			</section>
+	</div>
+</div>

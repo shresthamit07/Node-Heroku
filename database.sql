@@ -21,9 +21,9 @@ CREATE TABLE users (
 
 CREATE TABLE products (
 	id SERIAL NOT NULL primary key unique,
-    name varchar(200) NOT NULL,
+    name varchar(200) NOT NULL unique,
     description text,
-    sku varchar(10) NOT NULL,
+    sku varchar(10) NOT NULL unique,
     country varchar(50) NOT NULL,
     category varchar(50) NOT NULL,
     type varchar(50) NOT NULL,

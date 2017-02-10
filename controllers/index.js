@@ -2,6 +2,7 @@ var express = require('express')
   , router = express.Router()
 
 router.use(require('./users'))
+router.use(require('./products'))
 
 router.get('/', function(req, res) {
 	console.log(req.session.passport);
