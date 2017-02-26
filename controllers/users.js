@@ -8,12 +8,6 @@ var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
-
-// app.use(session({ secret: 'anything',
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie : { secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
-// }));
 app.use(passport.initialize());
 app.use(passport.session());
 

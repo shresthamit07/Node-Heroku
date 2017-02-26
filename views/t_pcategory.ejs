@@ -1,14 +1,27 @@
+
+<!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/t_products.css">
+	<link rel="stylesheet" href="/css/t_register.css">
+		<link rel="stylesheet" href="/css/t_products.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/js/t_register.js"></script>
+	<script src="/js/t_pcategory.js"></script>
+	<%
+		var prepareDetails = function(data_item){
+    var item = {id: data_item.id,
+    						name: data_item.name,
+                category: data_item.category,
+                size: data_item.volume,
+                price: data_item.price
+            }
+    return item;
+	}
+	%>
      <% include t_header.ejs %>
  </head>
-<title></title>
-<body>
 <div class='sidebar'>
 	<% include t_sidebar.ejs %>
 </div>
@@ -31,7 +44,7 @@
 									<span class='volume'><%=data[i].volume%></span>
 								</div>
 								<div class='p_name' title='<%= data[i].name%>'><h4><%= data[i].name%></h4></div>
-								<p><a class="item_add" href="#"><i></i> <span class=" item_price valsa">$<%= data[i].price%></span></a></p>
+								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"><i></i><span class=" item_price valsa"> $<%= data[i].price%></span></a></p>
 							</div>	
 						</div>
 						<% } %>

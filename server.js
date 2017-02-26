@@ -1,7 +1,9 @@
 
 var express = require('express');
 var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
 var app = module.exports = express();
+app.use(cookieParser());
 var session = require('express-session');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -12,11 +14,10 @@ var validator = require('express-validator');
 app.use(bodyParser());
 app.use(validator());
 
-
 app.use(session({ secret: 'anything',
     resave: true,
     saveUninitialized: true,
-    cookie : { secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
+    cookie : {'uniq_user_id': parseInt(new Date().getTime() + Math.random()), httpOnly: false, secure : true, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
 }));
 
 app.use(passport.initialize());
@@ -66,6 +67,7 @@ function get_pcategory(){
 };
 
 app.get('/design', function(req, res){
+    res.clearCookie("item_details");
 	res.render(path + 't_index');
 });
 
