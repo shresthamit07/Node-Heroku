@@ -17,15 +17,18 @@ app.use(validator());
 app.use(session({ secret: 'anything',
     resave: true,
     saveUninitialized: true,
-    cookie : {'uniq_user_id': parseInt(new Date().getTime() + Math.random()), httpOnly: false, secure : true, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
+    cookie : {httpOnly: false, secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
+//'uniq_user_id': parseInt(new Date().getTime() + Math.random())
 var path = __dirname + '/views/';
 var passport = require('passport');
 var flash    = require('connect-flash');
+
+app.use(express.static(__dirname + '/public'));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(require('./controllers'))
 

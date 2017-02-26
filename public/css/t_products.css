@@ -13,3 +13,19 @@
 .products-grd{
 	margin:0 4px !important;
 }
+
+/*for index page*/
+.products-grd-index{
+	float: left;
+    width: 23.9%;
+    text-align: center;
+    position: relative;
+}
+
+.products-grid-left-index{
+	padding: 0 !important;
+	width: 100% !important;
+}
+.banner-info, .banner-info1{
+	/*height: 324px;*/
+}
