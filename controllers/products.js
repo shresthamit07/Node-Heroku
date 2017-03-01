@@ -44,6 +44,21 @@ router.post('/products/add_to_cart', function(req, res){
   res.cookie('item_details' , items, { expires: new Date(Date.now() + 60000), httpOnly: false }).send('Cookie is set');
 });
 
+router.post('/products/delete_from_cart', function(req, res){
+  var items_in_cart = []
+  var items_to_delete = JSON.parse(req.body.data);
+  if(req.cookies.item_details != undefined){
+    items_in_cart = req.cookies.item_details;
+    items_in_cart = items_in_cart.filter(function( obj ) {
+      return obj.id !== items_to_delete;
+    });
+
+  }
+  console.log('later')
+  console.log(items_in_cart)
+  res.cookie('item_details' , items_in_cart, { expires: new Date(Date.now() + 60000), httpOnly: false }).send('Cookie is set');
+});
+
 router.get('/mycart', function(req, res, next){
   var cart_items = [];
   console.log(cart_items);
@@ -61,19 +76,19 @@ router.get('/mycart', function(req, res, next){
 })
 
 
-var get_localdata = function(){
-  if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
-  var data = JSON.parse(localStorage.getItem('cart_details'));
-  console.log(data);
-  if(!data){
-      ids = [];
-  }else{
-    ids = data.ids;
-  }
-  return ids;
-}
+// var get_localdata = function(){
+//   if (typeof localStorage === "undefined" || localStorage === null) {
+//   var LocalStorage = require('node-localstorage').LocalStorage;
+//   localStorage = new LocalStorage('./scratch');
+// }
+//   var data = JSON.parse(localStorage.getItem('cart_details'));
+//   console.log(data);
+//   if(!data){
+//       ids = [];
+//   }else{
+//     ids = data.ids;
+//   }
+//   return ids;
+// }
 
  module.exports = router
