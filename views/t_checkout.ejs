@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/t_register.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/t_register.js"></script>
+	<script src="/js/t_cartview.js"></script>
+     <% include t_header.ejs %>
+ </head>
+<title></title>
+
+	<div class="reg-form">
+		<div class="container">
+		<div class="col-md-3 cart-total" id='checkout_total'>
+			<a class="continue" href="/">Continue Shopping</a>
+			<div class="price-details">
+				<h3>Price Details</h3>
+				<span>Total</span>
+				<span class="total1"></span>
+				<span>Delivery Charges</span>
+				<span class="total1"></span>
+				<div class="clearfix"></div>				 
+			</div>	
+			<ul class="total_price">
+			   <li class="last_price"> <h4>TOTAL</h4></li>	
+			   <li class="last_price"><span></span></li>
+			   <div class="clearfix"> </div>
+			</ul> 
+			<div class="clearfix"></div>
+			<a class="order" href="/mycart">Review Order</a>
+		</div>
+		<div class="col-md-9 cart-items">
+			<div class="reg" id='checkout'>
+				<h3>Checkout</h3>
+				<h5>(Get Delivery within an hour)</h5>
+				<h4 class='topic'> Enter Checkout Details</h4>
+				<br/>
+				<p>* All fields are required</p>
+				<% if (typeof error_msg !== 'undefined') { %>
+					<div class="alert alert-danger"><%= error_msg%></div>
+				<% } %>
+				<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+				<% for(var i=0; i < errors.length; i++) { %>
+						<div class="alert alert-danger"><%= errors[i].msg%></div>
+					<% } %>
+				<% } %>
+
+				 <form id='register_form' action='/checkout' method='post'>
+					<ul id='form_contents'>
+						<li class="text-info">Full Name*: </li>
+						<li><input type="text" value="" title = 'Please enter first name' name='full_name' required oninvalid="this.setCustomValidity()"></li>
+					</ul>				 
+					<ul>
+						<li class="text-info">Email*: </li>
+						<li><input type="email" value="" title = 'Please enter valid email' name='email' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Mobile Number*:</li>
+						<li><input type="number" value=""  title = 'Please enter valid mobile number' name='m_number' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Delivery Address*:</li>
+						<li><input class='user_address' placeholder='Enter full address with zip code' type="text" value=""  title = 'Please enter address' name='address' required></li>
+					</ul>
+					<div id='payment_details'>
+						<br/>
+						<p> Payment Details </p>
+						<br/>
+					<ul>
+						<li class="text-info">Credit Card Number*:</li>
+						<li><input type="number" value=""  title = 'Please enter valid credit card number' name='cc_num' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Expiration Date*:</li>
+						<li><input type="text" value=""  title = 'Please enter valid expiration date' name='cc_date' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Security Code(or "CVC" or "CVV"*):</li>
+						<li><input type="number" value=""  title = 'Please enter valid mobile number' name='cc_code' required></li>
+					</ul>
+					</div>
+
+					</br>
+					<input type="submit" value="Order Now" id='order_btn'>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<% include t_footer.ejs%>
+</body>
+</html>

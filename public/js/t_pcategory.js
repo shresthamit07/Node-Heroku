@@ -1,7 +1,8 @@
 $(document).ready(function(){
     // localStorage.clear();
 
-    $(".item_add").click(function (event) {
+    $(".item_add").on('click', function (event) {
+                $('div.message_div').hide();
                 event.preventDefault();
                 var data = $(this).data('itemdetails');
                 console.log(data.id);
@@ -23,6 +24,20 @@ $(document).ready(function(){
                         console.log(data);
                     },
                     error: function(e){
+                        $('div.message_div').show();
+                        $('div.message_div').html('Item added successfully to your cart.').css({
+                            'position': 'fixed',
+                            'top': '0',
+                            'left': '0',
+                            'z-index': '999',
+                            'width': '100%',
+                            'height': '50px',
+                            'background-color': '#dff0d8',
+                            'color': '#3c763d',
+                            'border-color': '#d6e9c6',
+                            'text-align': 'center',
+                            'padding': '5px',
+                        }).delay(1000).fadeOut();
                         getLocalStorageCartData();
                         console.log(e);
                     }

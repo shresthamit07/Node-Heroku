@@ -15,6 +15,7 @@ CREATE TABLE users (
     password varchar(100) NOT NULL,
     phone varchar NOT NULL,
     address varchar(100) NOT NULL,
+    is_admin boolean NOT NULL DEFAULT FALSE,
     created_at timestamp default current_timestamp NOT NULL,
     updated_at timestamp default current_timestamp NOT NULL
 );
@@ -34,3 +35,7 @@ CREATE TABLE products (
     created_at timestamp default current_timestamp NOT NULL,
     updated_at timestamp default current_timestamp NOT NULL
 );
+
+
+ALTER TABLE users
+  ADD COLUMN "is_admin" BOOLEAN DEFAULT FALSE;

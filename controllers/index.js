@@ -3,6 +3,8 @@ var express = require('express')
 
 router.use(require('./users'))
 router.use(require('./products'))
+router.use(require('./email_handler'))
+router.use(require('./orders'))
 
 var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
 const pg = require('pg');
