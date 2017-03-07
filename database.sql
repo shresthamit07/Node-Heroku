@@ -36,6 +36,31 @@ CREATE TABLE products (
     updated_at timestamp default current_timestamp NOT NULL
 );
 
+CREATE TABLE orders (
+    id SERIAL NOT NULL primary key unique,
+    cust_name varchar(200) NOT NULL,
+    email varchar(50) NOT NULL,
+    phone varchar NOT NULL,
+    delivery_address varchar(100) NOT NULL,
+    cc_number varchar NOT NULL,
+    cc_date varchar NOT NULL,
+    cc_code varchar NOT NULL,
+    comments varchar,
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
+);
+
+CREATE TABLE orders_products (
+    id SERIAL NOT NULL primary key unique,
+    orders_id int NOT NULL,
+    products_id int NOT NULL,
+    products_name varchar(200),
+    products_price numeric(5,2) NOT NULL,
+    quantity int NOT NULL,
+    image varchar(100),
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
+);
 
 ALTER TABLE users
   ADD COLUMN "is_admin" BOOLEAN DEFAULT FALSE;

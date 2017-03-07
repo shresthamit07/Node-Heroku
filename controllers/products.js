@@ -56,7 +56,7 @@ router.post('/products/delete_from_cart', function(req, res){
   }
   console.log('later')
   console.log(items_in_cart)
-  res.cookie('item_details' , items_in_cart, { expires: new Date(Date.now() + 60000), httpOnly: false }).send('Cookie is set');
+  res.cookie('item_details' , items_in_cart, { expires: new Date(Date.now() + 600000), httpOnly: false }).send('Cookie is set');
 });
 
 router.get('/mycart', function(req, res, next){

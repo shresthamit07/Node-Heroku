@@ -48,7 +48,7 @@
 					<% } %>
 				<% } %>
 
-				 <form id='register_form' action='/checkout' method='post'>
+				 <form id='register_form' class='checkout_form' action='' method='post'>
 					<ul id='form_contents'>
 						<li class="text-info">Full Name*: </li>
 						<li><input type="text" value="" title = 'Please enter first name' name='full_name' required oninvalid="this.setCustomValidity()"></li>
@@ -63,7 +63,11 @@
 					</ul>
 					<ul>
 						<li class="text-info">Delivery Address*:</li>
-						<li><input class='user_address' placeholder='Enter full address with zip code' type="text" value=""  title = 'Please enter address' name='address' required></li>
+						<li><input class='user_address' placeholder='Enter full address with zip code' type="text" value=""  title = 'Please enter address' name='delivery_address' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Comment:</li>
+						<li><textarea value=""  title = 'Comment' name='comments'></textarea></li>
 					</ul>
 					<div id='payment_details'>
 						<br/>
@@ -71,7 +75,7 @@
 						<br/>
 					<ul>
 						<li class="text-info">Credit Card Number*:</li>
-						<li><input type="number" value=""  title = 'Please enter valid credit card number' name='cc_num' required></li>
+						<li><input type="number" value=""  title = 'Please enter valid credit card number' name='cc_number' required></li>
 					</ul>
 					<ul>
 						<li class="text-info">Expiration Date*:</li>

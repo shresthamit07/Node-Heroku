@@ -32,6 +32,60 @@ $(document).ready(function(c) {
                     }
 	        });
 	    });
+
+	$(".checkout_form").submit(function(e) {
+		$('div.message_div').hide();
+
+	    var url = "path/to/your/script.php"; // the script where you handle the form input.
+
+	    $.ajax({
+	           type: "POST",
+	           url: 'http://localhost:3000/checkout',
+	           data: $(".checkout_form").serialize(), // serializes the form's elements.
+	           success: function(data) {
+	           		localStorage.removeItem('cart');
+	                localStorage.removeItem('cart_details');
+	                getLocalStorageCartData();
+	                $('div.message_div').show();
+                    $('div.message_div').html('Your order has been placed successfully. Check your Email for order details.').css({
+                        'position': 'fixed',
+                        'top': '0',
+                        'left': '0',
+                        'z-index': '999',
+                        'width': '100%',
+                        'height': '50px',
+                        'background-color': '#dff0d8',
+                        'color': '#3c763d',
+                        'border-color': '#d6e9c6',
+                        'text-align': 'center',
+                        'padding': '5px',
+                    }).delay(10000).fadeOut();
+	                window.location.href = 'http://localhost:3000';
+	            },
+	            error: function(e){
+	            	localStorage.removeItem('cart');
+	            	getLocalStorageCartData();
+	            	localStorage.removeItem('cart_details');
+	            	$('div.message_div').show();
+                    $('div.message_div').html('Your order has been placed successfully. Check your Email for order details.').css({
+                        'position': 'fixed',
+                        'top': '0',
+                        'left': '0',
+                        'z-index': '999',
+                        'width': '100%',
+                        'height': '50px',
+                        'background-color': '#dff0d8',
+                        'color': '#3c763d',
+                        'border-color': '#d6e9c6',
+                        'text-align': 'center',
+                        'padding': '5px',
+                    }).delay(10000).fadeOut();
+	                console.log(e);
+	            	window.location.href = 'http://localhost:3000';
+	            }
+	         });
+	     e.preventDefault();
+	 });
 });
 
 var showCartDetails = function(){
