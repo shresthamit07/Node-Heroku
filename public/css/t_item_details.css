@@ -1,0 +1,40 @@
+.item_detail{
+	width: 20%;
+	float: left;
+    margin-right: 2em;
+}
+.item_detail img{
+	margin: 0 auto;
+    max-height: 250px;
+}
+#item_detail{
+	/*width:100%;*/
+	height: 450px;
+	float: right;
+}
+.i_detail{
+	padding: 5px;
+    margin: 10px;
+    font-weight: bold;
+}
+#volume{
+	font-size: 13px;
+	font-style: italic;
+	font-family: initial;
+}
+#description{
+	font-family: arial;
+    font-weight: initial;
+}
+
+/*404 page design*/
+.error_code{
+	text-align: center;
+    margin: 50px;
+    font-size: 75px;
+}
+.error_text{
+	text-align: center;
+    margin: 50px;
+    font-size: 32px;
+}

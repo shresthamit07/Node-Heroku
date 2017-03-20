@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/liquorzone.js"></script>
+   <% include t_header.ejs %>
+ </head>
+<body>
+<div class="panel-group collpse" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          About Us
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        We deliver the liquor items within an hour in your selected place.
+      </div>
+      <div class="panel-body">
+      	OUR TEAM
+      	<p> Our team is happy to help you. </p>
+      	<br>
+		<img src="/images/liquors/about_us_team.jpg" alt="" class="img-responsive" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>

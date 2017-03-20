@@ -89,7 +89,7 @@
 					<% for(var i=0; i < data.length; i++) { %>
 						<div class="products-grd-index">
 							<div class="p-one simpleCart_shelfItem prd">
-								<a href="single.html">
+								<a href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>">
 									<img src="/images/liquors/<%=data[i].image%>" alt="" class="img-responsive" />
 								</a>
 								<div>

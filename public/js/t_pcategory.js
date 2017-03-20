@@ -72,7 +72,8 @@ var addToCart = function(id, item) {
             category: item.category,
             price : item.price,
             qty : 1,
-            image: item.image
+            image: item.image,
+            volume: item.size
         });
     }
 

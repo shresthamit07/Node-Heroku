@@ -57,6 +57,7 @@ CREATE TABLE orders_products (
     products_name varchar(200),
     products_price numeric(5,2) NOT NULL,
     quantity int NOT NULL,
+    volume varchar(50) NOT NULL,
     image varchar(100),
     created_at timestamp default current_timestamp NOT NULL,
     updated_at timestamp default current_timestamp NOT NULL
@@ -64,3 +65,9 @@ CREATE TABLE orders_products (
 
 ALTER TABLE users
   ADD COLUMN "is_admin" BOOLEAN DEFAULT FALSE;
+
+
+ALTER TABLE orders_products
+  ADD COLUMN "volume" varchar(50) NOT NULL DEFAULT '750ml';
+ALTER TABLE orders_products
+  ALTER COLUMN "volume" DROP DEFAULT;

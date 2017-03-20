@@ -966,7 +966,7 @@ p.non span{
 	margin-right:2em;
 }
 .cart-item img{
-	width:100%;
+	/*width:100%;*/
 }
 .cart-item-info{
 	width:75%;
@@ -1161,6 +1161,9 @@ ul.qty{
 ul.qty li{
    display: inline-block;
    margin-right: 10%;
+}
+ul.qty li.i_qty{
+	float: right;
 }
 ul.qty li p{
 	font-size:0.8125em;
