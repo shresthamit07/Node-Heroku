@@ -8,6 +8,7 @@ var flash = require('connect-flash');
 var bcrypt = require('bcrypt');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+ var moment = require('moment');
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -62,10 +63,16 @@ router.post('/register', function(req, res) {
 
 
 router.get('/login', function(req, res, next) {
-	console.log('req')
+	console.log(req.user)
 	console.log(req.isAuthenticated());
 	if(req.isAuthenticated()){
-		return res.render('t_index.ejs', {session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+		if(req.user.is_admin)
+		{
+			console.log('admin')
+			return res.render('t_index.ejs', {data: [], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+		}else{
+			return res.render('t_index.ejs', {data:[], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+		}
 	}
 	else{
 		return res.render('t_login.ejs');
@@ -146,6 +153,95 @@ router.get('/api', function(req, res) {// render the page and pass in any flash 
         return;
     });
 });
+
+router.get('/profile', function(req, res) {// render the page and pass in any flash data if it exists
+	if(req.isAuthenticated()){
+		res.render('t_profile');
+	}else{
+		res.render('404');
+	}
+	
+});
+
+
+router.get('/order_history', function(req, res) {// render the page and pass in any flash data if it exists
+	var results = [];
+	var id_wise_item_hash = {};
+	var total_amount_hash = {};
+	if(req.isAuthenticated()){
+		user_email = req.user.email;
+		console.log(user_email)
+		var query = client.query("SELECT * from orders where email = $1", [user_email],function(err, result){
+			if(err) { console.log('error');return next(err)}
+			results = result.rows
+			if(results != undefined & results.length > 0){
+				var ids = results.map(function(a) {return a.id;});
+				var query1 = client.query("SELECT * from orders_products where orders_id = ANY (select id from orders where email = $1)", [user_email], function(err1, i_result){
+				// query1.on("row", function (row, i_result) {
+					// console.log(i_result.rows);
+					var item_results = i_result.rows
+					if(item_results != undefined & item_results.length > 0){
+						id_wise_item_hash = id_associated_orders_item(item_results)
+						total_amount_hash = get_total_amount_per_order(id_wise_item_hash)
+						console.log(total_amount_hash)
+						res.render('t_order_history', {orders: results, moment: moment, order_items: id_wise_item_hash, total_amount: total_amount_hash});
+					}else{
+						res.render('t_order_history', {orders: []});		
+					}
+				})
+			}else{
+				res.render('t_order_history', {orders: []});
+			}
+		});
+	// }
+
+		// query.on('row', function(row) {
+  //       	results.push(row);
+  //       	res.render('t_order_history', {orders: results});
+  //   	});
+		// query.on("row", function (row, result) {
+		// 	// results = 
+		// 	console.log({orders: row})
+		// 	res.render('t_order_history', {orders: results});
+		// });
+		// console.log(results)
+		
+	}else{
+		res.render('404');
+	}
+});
+
+// returns hash {'1' => [orders with id 1], '2'=> [orders with id 2]}
+var id_associated_orders_item = function(data){
+	console.log(data.length)
+	var orders_hash  = {};
+	for(var i = 0, l = data.length; i < l; i++) {
+		var order_id = data[i].orders_id;
+		if(orders_hash[order_id] != undefined){
+			orders_hash[order_id].push(data[i]);
+		}else{
+			orders_hash[order_id] = [data[i]];
+		}
+	}
+	return orders_hash
+
+};
+
+var get_total_amount_per_order = function(data){
+	var total_hash  = {};
+	console.log(data);
+
+	Object.keys(data).forEach(function (key) {
+		var total_amount = 0;
+		for(var j = 0, l = data[key].length; j < l; j++) {
+			var price = data[key][j].products_price;
+			var qty= data[key][j].quantity;
+			total_amount = total_amount + (price * qty);
+		}
+		total_hash[key] = total_amount 
+	})
+	return total_hash
+}
 
 var insert_item = function(row){
 	var query = client.query('INSERT INTO products(name, description, sku, country, category, type, price, quantity, image, volume) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',

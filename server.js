@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
+var moment = require('moment');
 app.use(flash());
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
@@ -70,8 +71,8 @@ function get_pcategory(){
 };
 
 app.get('/design', function(req, res){
-    res.clearCookie("item_details");
-	res.render(path + 't_index');
+    // res.clearCookie("item_details");
+	res.render(path + 'index');
 });
 
 app.listen(3000, function() {

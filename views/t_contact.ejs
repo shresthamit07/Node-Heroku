@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/liquorzone.js"></script>
+   <% include t_header.ejs %>
+ </head>
+<body>
+<!-- contact -->
+	<div class="contact-bottom">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2965.594688886487!2d-70.97673444980198!3d41.98751116643856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e491b71d03f115%3A0x2727e4573909dc15!2s131+Summer+St%2C+Bridgewater%2C+MA+02324!5e0!3m2!1sen!2sus!4v1489539990408" width="600" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>
+	<div class="contact">
+		<div class="container">
+			<div class="col-md-4 contact-left">
+				<h3>Address</h3>
+				<p> 131 Summer Street
+					
+					<span>Bridgewater, MA 02325</span></p>
+				<ul>
+					<li>Telephone :+1 508.531.1000</li>
+					<li>Email: liquorzone@gmail.com</li>
+				</ul>
+			</div>
+			<div class="col-md-8 contact-left">
+				<h3>Contact Form</h3>
+				<form id='contact_form' action='' method='post'>
+					<input class='c_name' type="text" value="Name" name = 'c_name' onfocus="{this.value = '';}" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+					<input class='c_email' type="email" value="Email" name = 'c_email' onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+					<input class='c_phone' type="text" value="Telephone" name = 'c_phone' onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
+					<textarea class='c_msg' type="text"  name = 'c_msg' onfocus="" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+					<input type="submit" value="Submit" >
+				</form>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+	<div class="header_top hidden" id='message_div'>
+	<div class="container">
+		<div class="logo">
+		 	<a href="/localhost:3000">LiquorZone.com</a>			 
+		</div>
+		<div class='msg_content'>
+			<ul >
+				<li class='name'><p> </p></li>
+				<li class='email'><p></p></li>
+				<li class='t_number'><p> </p></li>
+				<li class='message'><p> </p></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- //contact -->
+<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	
+<!-- //footer -->
+</body>
+</html>

@@ -1,0 +1,137 @@
+/* order page*/
+.page_header{
+  font-size: 1.5em;
+  color: #204056;
+  margin: 38px;
+  width: 250px;
+  background: #f6f6f6!important;
+  margin-bottom: -16px;
+  padding: 13px;
+
+}
+.order_container{
+	margin-bottom: 14px!important;
+  margin: 38px;
+}
+.order_header{
+	display: block;
+  border: 1px #ddd solid;
+  background-color: #f6f6f6!important;
+  border-radius: 4px 4px 0 0;
+  width: 840px;
+  min-height: 63px;
+  position: relative;
+  padding: 14px 18px;
+}
+.detail_container{
+	margin-bottom: 14px!important;
+	display: block;
+	border-radius: 0 0 4px 4px;
+	margin-top: -1px;
+	border: 1px #ddd solid;
+  background-color: #fff;
+  width: 840px;
+  min-height: 150px;
+  position: relative;
+  padding: 14px 18px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.order_detail{
+  /* max-height: 233px; */
+    /* margin-bottom: 14px!important; */
+    display: block;
+    border-radius: 0 0 4px 4px;
+    /* margin-top: -1px; */
+    /* border: 1px #ddd solid; */
+    background-color: #fff;
+    /* width: 840px; */
+    /* min-height: 200px; */
+    position: relative;
+    /* padding: 14px 18px; */
+}
+.o_title, .o_value{
+	font-size: 11px!important;
+  line-height: 1.465!important;
+}
+.o_date, .o_item_total, .o_shipping_charge, .o_total, .o_address{
+	  margin-right: 2%;
+    float: left;
+    min-height: 1px;
+    overflow: visible;
+     width: 17%;
+}
+.o_date{
+	padding-left: 40px;
+}
+.o_title, .o_value{
+	line-height: 1.465!important;
+	color: #555!important;
+}
+
+.wrapper{
+	margin-top: 18px!important;
+	padding-left: 100px;
+	width: 73%;
+	float: left;
+}
+.image_container img{
+	/*width: 75px;*/
+  max-height: 150px;
+  max-width: 50px;
+  margin-left: -100px;
+  float: left;
+  padding-right: 0;
+}
+.item_description{
+	padding-left: 1.5%;
+  float: left;
+}
+.re_wrapper{
+	position: relative;
+  overflow: visible;
+  zoom: 1;
+  min-height: 1px;
+  width: 220px;
+  margin-right: -220px;
+  float: left;
+}
+
+.add_cart, .o_rate{
+	outline: none;
+    border: none;
+    color: #ffffff;
+    padding: 8px 30px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 0 32px 0;
+    background: #003366;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    float: right;
+
+}
+.o_rate{
+	margin-top: -25px;
+}
+.i_detail{
+  font-size: 13px;
+  color: #555!important;
+}
+
+#price{
+  color: #b12704!important
+}
+
+.no_order{
+  background: #036;
+  height: 30px;
+  width: 400px;
+  color: #fff;
+  text-align: center;
+  margin-top: 65px;
+  margin-left: 38px;
+  padding: 4px;
+}
+/*end of order page*/

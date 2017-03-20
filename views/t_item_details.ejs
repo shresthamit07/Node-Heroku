@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/t_item_details.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/t_register.js"></script>
+	<script src="/js/t_pcategory.js"></script>
+	<script src="/js/t_cartview.js"></script>
+	<%
+		var prepareDetails = function(data_item){
+    var item = {id: data_item.id,
+    						name: data_item.name,
+                category: data_item.category,
+                size: data_item.volume,
+                price: data_item.price,
+                image: data_item.image
+            }
+    return item;
+	}
+	%>
+   <% include t_header.ejs %>
+ </head>
+<body>
+<!-- check-out -->
+<div class="container">
+	<div class="check">
+		<div class="col-md-9 cart-items">
+		<% for(var i=0; i < data.length; i++) { %>
+			<div class="cart-header">
+				<div class="cart-sec simpleCart_shelfItem">
+						<span class="item_detail cyc">
+							<img src="/images/liquors/<%=data[i].image%>" class="img-responsive" alt="" href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>"/>
+						</div>
+						<div class="col-md-8" id='item_detail'>
+							<div id='name' class='i_detail'>
+								<p><%= data[i].name %></p>
+							</div>
+							<div id='price' class='i_detail'>
+								<p>$<%= data[i].price %> </p>
+							</div>
+							<div id='volume' class='i_detail'>
+								<p><%= data[i].volume %> </p>
+							</div>
+							<div id='available_qty' class='i_detail'>
+								<p>Available in Stock :<%= data[i].quantity %></p>
+							</div>
+							<div id='rating' class='i_detail'>
+								<p>Rating :</p>
+							</div>
+							<div id='description' class='i_detail'>
+								<p><%= data[i].description %> </p>
+							</div>
+							<div class="fgh i_detail">
+								<a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"> Add To Cart</a>
+								<!-- <a href="#">Add To Cart</a> -->
+							</div>
+						</div>
+					   <div class="clearfix"></div>
+											
+				  </div>
+			 </div>
+			<% } %>	
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+</body>
+</html>

@@ -39,9 +39,35 @@ router.get('/products/:category', function(req, res, next) {
   }
 });
 
+router.get('/products/:category/:id', function(req, res, next) {
+  
+  var item_details = [];
+  var item_id = req.params.id;
+  console.log(item_id);
+  if(typeof item_id == 'undefined'){
+    console.log('invalid params')
+    // res.render('t_pcategory.ejs',{data: []});
+  }else{
+    client.query('SELECT * from products where id = $1', [item_id], function (err, result) {
+      if(err) { console.log('error');return next(err)}
+      item_details = result.rows
+      if(isEmpty(item_details)){
+        res.render('404.ejs');
+      }else{
+        if(req.isAuthenticated()){
+          res.render('t_item_details.ejs',{data: item_details, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+        }
+        else{
+         res.render('t_item_details.ejs',{data: item_details, url: req.url}); 
+        }
+      }
+    })
+  }
+});
+
 router.post('/products/add_to_cart', function(req, res){
   var items = JSON.parse(req.body.data);
-  res.cookie('item_details' , items, { expires: new Date(Date.now() + 60000), httpOnly: false }).send('Cookie is set');
+  res.cookie('item_details' , items, { expires: new Date(Date.now() + 600000), httpOnly: false }).send('Cookie is set');
 });
 
 router.post('/products/delete_from_cart', function(req, res){
@@ -58,6 +84,12 @@ router.post('/products/delete_from_cart', function(req, res){
   console.log(items_in_cart)
   res.cookie('item_details' , items_in_cart, { expires: new Date(Date.now() + 600000), httpOnly: false }).send('Cookie is set');
 });
+
+router.post('/products/update_qty', function(req, res){
+  var items = JSON.parse(req.body.data);
+  res.cookie('item_details' , items, { expires: new Date(Date.now() + 600000), httpOnly: false }).send('Cookie is set');
+});
+
 
 router.get('/mycart', function(req, res, next){
   var cart_items = [];
@@ -90,5 +122,10 @@ router.get('/mycart', function(req, res, next){
 //   }
 //   return ids;
 // }
+
+var isEmpty = function(obj) { 
+   for (var x in obj) { return false; }
+   return true;
+}
 
  module.exports = router

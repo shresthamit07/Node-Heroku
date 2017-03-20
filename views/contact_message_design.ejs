@@ -1,0 +1,27 @@
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <style>
+			.logo {
+				background-color: steelblue;
+				width: 400px;
+			}
+
+		</style>
+ </head>
+<body>
+<div class="header_top">
+	<div class="container">
+		<div class="logo">
+		 	<a href="/localhost:3000">LiquorZone.com</a>
+		 	<% for(var i=0; i < data.length; i++) { %>
+		 	<p><%= data[i].name%></p>
+		 	<%}%>
+		</div>
+	</div>
+</div>
+</body>

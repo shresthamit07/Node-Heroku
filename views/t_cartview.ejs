@@ -9,6 +9,18 @@
 	<script src="/js/t_register.js"></script>
 	<script src="/js/t_cartview.js"></script>
    <% include t_header.ejs %>
+   <%
+		var prepareDetails = function(data_item){
+    var item = {id: data_item.id,
+    						name: data_item.name,
+                category: data_item.category,
+                size: data_item.volume,
+                price: data_item.price,
+                image: data_item.image
+            }
+    return item;
+	}
+	%>
    <script type="text/javascript">
 	  //   $(document).ready(function() {
 	  //   	showCartDetails();
@@ -59,63 +71,73 @@
 			   <li class="last_price"><span></span></li>
 			   <div class="clearfix"> </div>
 			</ul> 
-			<div class="clearfix"></div>
-			<a class="order" href="/checkout">Place Order</a>
+			<%if(data.length > 0){%>
+				<div class="clearfix"></div>
+				<a class="order" href="/checkout">Place Order</a>
+			<%}%>
 		</div>
 		<div class="col-md-9 cart-items">
 			<h1 class='quantity'>My Cart</h1>
-		<% for(var i=0; i < data.length; i++) { %>
-			<div class="cart-header">
-				<div class="close1"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-						<div class="cart-item cyc">
-							<img src="/images/liquors/<%=data[i].image%>" class="img-responsive" alt=""/>
-						</div>
-					   <div class="cart-item-info" data-id="<%=data[i].id %>">
-							<ul class="qty">
-								<li><p><%= data[i].name %> </p></li>
-								<li><p>Unit Price : <%= data[i].price %> </p></li>
-								<li><p>Qty :<%= data[i].qty %></p></li>
-								<li><p>Total : <%= data[i].price * data[i].qty %></p></li>
-							</ul>
-							<div class="delivery">
-								 <p></p>
-								 <!-- <span>Delivered in 2-3 bussiness days</span> -->
-								 <div class="clearfix"></div>
-							</div>	
-							<div class="fgh">
-								<a href="#">Add To Cart</a>
-							</div>
-					   </div>
-					   <div class="clearfix"></div>
-											
-				  </div>
-			 </div>
-			<% } %>
-			<!-- <div class="cart-header2">
-				<div class="close2"> </div>
+				<%if(data.length <= 0){%>
+					<div class="cart-header">
+						<p> Your Cart is Empty.</p>
+					</div>
+				<%} else {%>
+					<% for(var i=0; i < data.length; i++) { %>
+					<div class="cart-header">
+					<div class="close1"> </div>
 					<div class="cart-sec simpleCart_shelfItem">
-						<div class="cart-item cyc">
-							 <img src="images/13.jpg" class="img-responsive" alt=""/>
-						</div>
-					    <div class="cart-item-info">
-							<ul class="qty">
-								<li><p>Size : 5</p></li>
-								<li><p>Qty : 1</p></li>
-							</ul>
-							<div class="delivery">
-								<p>Service Charges : Rs.100.00</p>
-								<span>Delivered in 2-3 bussiness days</span>
-								<div class="clearfix"></div>
-							</div>	
-							<div class="fgh">
-								<a href="#">Add To Cart</a>
+							<div class="cart-item cyc">
+								<img src="/images/liquors/<%=data[i].image%>" class="img-responsive" alt="" href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>"/>
 							</div>
-					   </div>
-					   <div class="clearfix"></div>					
-				    </div>
-			 --></div>		
-		</div>
+						   <div class="cart-item-info" data-id="<%=data[i].id %>">
+								<ul class="qty">
+									<li><p><%= data[i].name %> </p></li>
+									<li><p>Unit Price : $<%= data[i].price %> </p></li>
+									<li class="i_qty">
+									<span class="col-md-4">
+									<input type="text" name="i_qty" id="i_qty" value='<%= data[i].qty %>' class="cart-qty numonly" maxlength="3">
+									<a class="update_qty" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href='/products/update_qty'>update</a>
+									</span>
+									<!-- <li><p>Qty :<%= data[i].qty %></p></li> -->
+									<li><p>Total : $<%= data[i].price * data[i].qty %></p></li>
+								</ul>
+								<div class="delivery">
+									 <p></p>
+									 <!-- <span>Delivered in 2-3 bussiness days</span> -->
+									 <div class="clearfix"></div>
+								</div>
+						   </div>
+						   <div class="clearfix"></div>
+												
+					  </div>
+				 </div>
+					<% } %>
+				<% } %>
+				<!-- <div class="cart-header2">
+					<div class="close2"> </div>
+						<div class="cart-sec simpleCart_shelfItem">
+							<div class="cart-item cyc">
+								 <img src="images/13.jpg" class="img-responsive" alt=""/>
+							</div>
+						    <div class="cart-item-info">
+								<ul class="qty">
+									<li><p>Size : 5</p></li>
+									<li><p>Qty : 1</p></li>
+								</ul>
+								<div class="delivery">
+									<p>Service Charges : Rs.100.00</p>
+									<span>Delivered in 2-3 bussiness days</span>
+									<div class="clearfix"></div>
+								</div>	
+								<div class="fgh">
+									<a href="#">Add To Cart</a>
+								</div>
+						   </div>
+						   <div class="clearfix"></div>					
+					    </div>
+				 --></div>		
+			</div>
 		<div class="clearfix"> </div>
 	</div>
 </div>

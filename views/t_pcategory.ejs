@@ -4,7 +4,7 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/t_register.css">
-		<link rel="stylesheet" href="/css/t_products.css">
+	<link rel="stylesheet" href="/css/t_products.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/js/t_register.js"></script>
@@ -38,7 +38,7 @@
 					<% for(var i=0; i < data.length; i++) { %>
 						<div class="products-grd">
 							<div class="p-one simpleCart_shelfItem prd">
-								<a href="single.html">
+								<a href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>">
 										<img src="/images/liquors/<%=data[i].image%>" alt="" class="img-responsive" />
 								</a>
 								<div>

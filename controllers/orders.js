@@ -6,7 +6,8 @@ var app = module.exports = express();
 
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
-const template = './views/design.ejs';
+const customer_template = './views/customer_template_design.ejs';
+const admin_template = './views/admin_template_design.ejs';
 
 var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
 const pg = require('pg');
@@ -50,17 +51,64 @@ router.post('/checkout', function(req, res) {
 			});
 	    query.on("row", function (row, result) {
 	    	var order_items = req.cookies.item_details;
+	    	console.log(order_items)
 	    	if(order_items != undefined){
 	    		for(var i = 0; i < order_items.length;i++){
-			    	var query1 = client.query('INSERT INTO orders_products(orders_id, products_id, products_name, products_price, quantity, image) values($1, $2, $3, $4, $5, $6)',
-			    	[row.id, order_items[i].id, order_items[i].name, order_items[i].price, order_items[i].qty, order_items[i].image]);
+			    	var query1 = client.query('INSERT INTO orders_products(orders_id, products_id, products_name, products_price, quantity, image, volume) values($1, $2, $3, $4, $5, $6, $7)',
+			    	[row.id, order_items[i].id, order_items[i].name, order_items[i].price, order_items[i].qty, order_items[i].image, order_items[i].volume]);
 			    	query1.on('error', function(err) {
 		  				console.log('Query error: ' + err);
 		  				return res.render('t_checkout', {error_msg: 'Something went wrong. Try again!'});
 					});
-				}
-			res.clearCookie('item_details');
+			    }
+
+			    var query2 = client.query('SELECT email from users where is_admin is True');
+				query2.on("row", function (row, result) {
+					console.log('.....')
+					console.log(row.email)
+					console.log('.....')
+					//send email
+					var transport = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+					user: 'liquorzone.owner@gmail.com',
+					pass: 'liquorzone07'
+					}
+					});
+
+
+					// for customer
+					ejs.renderFile(customer_template, (err, html) => {
+					      if (err) console.log(err); // Handle error
+
+					      console.log(`HTML: ${html}`);
+
+					      transport.sendMail({
+					      	from: 'liquorzone.owner@gmail.com',
+					      	to: 'liquorzone.owner@gmail.com',
+					      	subject: 'EJS Customer Test File',
+					        html: html
+					      })
+					    });
+
+					// for admin
+					ejs.renderFile(admin_template, (err, html) => {
+					      if (err) console.log(err); // Handle error
+
+					      console.log(`HTML: ${html}`);
+
+					      transport.sendMail({
+					      	from: 'liquorzone.owner@gmail.com',
+					      	to: row.email,
+					      	subject: 'EJS Admin Test File',
+					        html: html
+					      })
+					    });
+					// end of email sending
+
+				});
 			}
+			res.clearCookie('item_details');
     	});
 			query.on('end', function(result){
 				res.redirect('/');
@@ -78,7 +126,7 @@ router.get('/send', function(req, res, next) {
   }
 });
 
-	ejs.renderFile(template, (err, html) => {
+	ejs.renderFile(customer_template, (err, html) => {
 	      if (err) console.log(err); // Handle error
 
 	      console.log(`HTML: ${html}`);

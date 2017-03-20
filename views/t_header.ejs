@@ -41,18 +41,22 @@
 		<div class="header_top-sec">
 			<div class="top_right">
 				<ul>
-					<li><a href="contact.html">Contact</a></li>|
-					<li><a href="login.html">Track Order</a></li>
+					<% if (typeof session != 'undefined' && session){%>
+						<li><a href="/contact_us">Contact</a></li> |
+						<li><a href="/order_history">View Orders</a></li>
+					<% } else {%>
+						<li><a href="/contact_us">Contact</a></li>
+					<%}%>
 				</ul>
 			</div>
 			<div class="top_left">
 				<ul>
 					<% if (typeof session != 'undefined' && session){%>
-						<li><a  class="top_link" href="/register", id='<%id%>'><%=name%></a>|
-						<li><a  class="top_link" href="/logout">Logout</a>
+						<li><a  class="top_link" href="/profile", id='<%id%>'><%=name%></a>|</li>
+						<li><a  class="top_link" href="/logout">Logout</a></li>
 					<% } else {%>
-						<li><a  class="top_link" href="/register">Register</a>|
-						<li><a  class="top_link" href="/login">Login</a>
+						<li><a  class="top_link" href="/register">Register</a>|</li>
+						<li><a  class="top_link" href="/login">Login</a></li>
 					<%}%>
 					<!-- <li><a  class="top_link" href="login">Login</a> -->
 					<!-- <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
@@ -112,17 +116,17 @@
 								</ul>	
 							</div>							
 						</div>
-			<li><a class="color1" href="#">About Us</a>
+			<li><a class="color1" href="/about_us">About Us</a>
 			</li>				
-			<li><a class="color1" href="#">Contact Us</a>
+			<li><a class="color1" href="/contact_us">Contact Us</a>
 			</li>				
 			</li>								
 		</ul> 
 			<div class="search">
-				 <form>
-					<input type="text" value="" placeholder="Search...">
-					<input type="submit" value="">
-					</form>
+				<form method='get' action="/search" >
+					<input name="query" type="text" value="" placeholder="Search..." class = 'search_box'>
+					<input type="submit" value=''>
+				</form>
 			</div>
 			<div class="clearfix"></div>
 		 </div>
