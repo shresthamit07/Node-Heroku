@@ -12,30 +12,53 @@ var client = new pg.Client(connectionString);
 client.connect();
 
 router.get('/products/:category', function(req, res, next) {
-  // console.log(req.session.passport);
-  // var params = {data: []}
-  // if(!isEmpty(req.session.passport)){
-  //   params = {data: [], session: true, id: req.session.passport.user.id, name: req.session.passport.user.first_name}
-  // }
   var items = [];
   var category = req.params.category;
+  var countries = [];
   console.log(category);
   if(typeof category == 'undefined'){
   	console.log('invalid params')
-    // res.render('t_pcategory.ejs',{data: []});
   }else{
   	var modified_category = category.split('_').join(' ')
   	console.log(modified_category);
-  	client.query('SELECT * from products where category = $1', [modified_category], function (err, result) {
-    	if(err) { console.log('error');return next(err)}
-    	items = result.rows
-      if(req.isAuthenticated()){
-  		  res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
-      }
-      else{
-       res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
-      }
-  	})
+    console.log(req.query.c != undefined)
+    if(req.query.p != undefined){
+      var price_range = req.query.p.split(',')
+      console.log(price_range[0])
+      client.query('SELECT * from products where category = $1 and (price >= $2 and price < $3)', [modified_category, price_range[0], price_range[1]], function (err, result) {
+        if(err) { console.log('error');res.render('404.ejs')}
+        items = result.rows
+        if(req.isAuthenticated()){
+          res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+        }
+        else{
+         res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+        }
+      })
+    }
+    else if(req.query.c != undefined){
+      client.query('SELECT * from products where category = $1 and LOWER(country) = $2', [modified_category, req.query.c], function (err, result) {
+        if(err) { console.log('error');return next(err)}
+        items = result.rows
+        if(req.isAuthenticated()){
+          res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+        }
+        else{
+         res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+        }
+      })
+    }else{
+    	client.query('SELECT * from products where category = $1', [modified_category], function (err, result) {
+      	if(err) { console.log('error');return next(err)}
+      	items = result.rows
+          if(req.isAuthenticated()){
+      		  res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+          }
+          else{
+           res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+          }
+        });
+    }
   }
 });
 

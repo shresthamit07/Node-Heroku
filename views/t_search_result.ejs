@@ -1,1 +1,68 @@
-<h2> Your Search Result </h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/t_register.css">
+	<link rel="stylesheet" href="/css/t_products.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/t_register.js"></script>
+	<script src="/js/t_pcategory.js"></script>
+	<%
+		var prepareDetails = function(data_item){
+			console.log(data_item)
+    var item = {id: data_item.id,
+    			name: data_item.name,
+                category: data_item.category,
+                size: data_item.volume,
+                price: data_item.price,
+                image: data_item.image
+            }
+    return item;
+	}
+	%>
+     <% include t_header.ejs %>
+ </head>
+<div class='sidebar'>
+	<% include t_sidebar.ejs %>
+</div>
+<!-- products -->
+<div class='s_result'>
+	Search Results for: <span class='s_param'><%= search_param%></span>
+</div>
+<%if(data.length > 0) {%>
+	<div class="products">
+		<div class="search_products">
+		<div class="container">
+			<div class="products-grids">
+				<div class="col-md-8 products-grid-left">
+					<div class="products-grid-lft">
+					<% for(var i=0; i < data.length; i++) { %>
+						<div class="products-grd">
+							<div class="p-one simpleCart_shelfItem prd">
+								<a href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>">
+										<img src="/images/liquors/<%=data[i].image%>" alt="" class="img-responsive" />
+								</a>
+								<div>
+									<span class='volume'><%=data[i].volume%></span>
+								</div>
+								<div class='p_name' title='<%= data[i].name%>'><h4><%= data[i].name%></h4></div>
+								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"><i></i><span class=" item_price valsa"> $<%= data[i].price%></span></a></p>
+							</div>	
+						</div>
+						<% } %>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+<%} else {%>
+	<div class='no_result'>
+		<p> No Result Found!! Try another search.
+	</div>
+<%}%>
+</body>
+</html>

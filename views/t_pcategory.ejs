@@ -30,6 +30,11 @@
 <div>
 	Top <%= category %>
 </div>
+<%if(data.length <= 0){%>
+<div class='s_result'>
+	No Items Found
+</div>
+<%} else {%>
 	<div class="products">
 		<div class="container">
 			<div class="products-grids">
@@ -55,5 +60,6 @@
 			</div>
 		</div>
 	</div>
+<%}%>
 </body>
 </html>

@@ -10,6 +10,13 @@
 	padding: 3px;
 	margin: 0 auto;
 }
+.search_products{
+	width: 75%;
+    float: right;
+}
+.products-grids{
+	padding: 1em 0 !important;
+}
 .products-grd{
 	margin:0 4px !important;
 }
@@ -29,3 +36,19 @@
 .banner-info, .banner-info1{
 	/*height: 324px;*/
 }
+
+/* for search*/
+.s_result{
+	margin-top: 20px;
+}
+.s_param{
+	font-style: italic;
+	font-family: sans-serif;
+	color: #fa87a5;
+}
+.no_result{
+    margin-top: 65px;
+    margin-left: 270px;
+    text-align: center;
+}
+/* end of search*/

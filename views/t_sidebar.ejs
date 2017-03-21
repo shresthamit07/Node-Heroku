@@ -1,3 +1,10 @@
+<html>
+<head>
+	<link rel="stylesheet" href='/css/sidebar.css'>
+</head>
+<div class='page_header'>
+	Filter by:
+</div>
 <div class="clearfix"> </div>
 	<div class="col-md-3 products-grid-lft">
 		<div class="w_sidebar">
@@ -5,13 +12,36 @@
 				<h4>Country</h4>
 				<!-- <div class="row1 scroll-pane"> -->
 					<div class="col col-4">
-					<% var countries = data.map(function(a) {return a.country;}); %>
-						<%var uniq_countries = Array.from(new Set(countries)) %>
-					<% for(var i=0; i < uniq_countries.length; i++) { %>
-						<label class="checkbox"><a href="single.html" id='<%= uniq_countries[i]%>'><%= uniq_countries[i]%></a></label>
+					<% var countries = p_country.countries; %>
+					<% for(var i=0; i < countries.length; i++) { %>
+						<%if(typeof category != 'undefined') {%>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?c=<%=countries[i].lower%>" id='<%= countries[i].lower%>'><%= countries[i].lower%></a></label>
+						<%} else {%>
+							<label class="checkbox"><a href="/products?c=<%=countries[i].lower%>" id='<%= countries[i].lower%>'><%= countries[i].lower%></a></label>
+						<%}%>
 						<% } %>
 					</div>
 				<!-- </div> -->
 			</section>
+			<section  class="sky-form">
+				<h4>Price Range</h4>
+					<div class="col col-4">
+					<%if(typeof category != 'undefined') {%>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=0,20">Up to $20</a></label>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=20,40">$20 - $40</a></label>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=40,60">$40 - $60</a></label>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=60,80">$60 - $80</a></label>
+						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=80, 10000">Above $80</a></label>
+					<%} else {%>
+						<label class="checkbox"><a href="/products?p=0,20">Up to $20</a></label>
+						<label class="checkbox"><a href="/products?p=20,40">$20 - $40</a></label>
+						<label class="checkbox"><a href="/products?p=40,60">$40 - $60</a></label>
+						<label class="checkbox"><a href="/products?p=60,80">$60 - $80</a></label>
+						<label class="checkbox"><a href="/products?p=80, 10000">Above $80</a></label>
+					<%}%>
+					</div>
+			</section>
+		</div>
 	</div>
 </div>
+</html>

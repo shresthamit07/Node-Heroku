@@ -53,9 +53,11 @@ var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
 app.locals = {
     p_category: {
         names: get_pcategory()
+    },
+    p_country: {
+        countries: get_countries()
     }
 };
-
 function get_pcategory(){
 	results = []
 
@@ -69,6 +71,19 @@ function get_pcategory(){
 	});
 	return results;
 };
+function get_countries(){
+    c_results = []
+
+    var query = client.query('SELECT DISTINCT LOWER(country) from products');
+    query.on("row", function (result) {
+        c_results.push(result);
+    });
+
+    query.on("end", function (results) {
+        client.end();
+    });
+    return c_results;
+}
 
 app.get('/design', function(req, res){
     // res.clearCookie("item_details");

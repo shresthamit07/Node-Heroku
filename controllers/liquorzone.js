@@ -5,6 +5,13 @@ var fs = require('fs');
 var session = require('express-session');
 var app = module.exports = express();
 
+var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
+const pg = require('pg');
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpassword@localhost/liquorzone';
+
+var client = new pg.Client(connectionString);
+client.connect();
+
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const contact_message_template = './views/contact_message_design.ejs';
@@ -52,8 +59,18 @@ router.get('/about_us', function(req, res, next) {
 })
 
 router.get('/search', function(req, res) {
-	console.log(req.query)
-	res.render('t_search_result');
+	console.log(req.query.query)
+	var items = [];
+	var query_param = req.query.query;
+	var query = client.query("SELECT * from products where (name || country || description || type || category || price || volume) ILIKE $1 limit 10", ['%'+query_param+'%'],function(err, result){
+    	items = result.rows
+      if(req.isAuthenticated()){
+      		res.render('t_search_result.ejs',{data: items, search_param: query_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+      }
+      else{
+      res.render('t_search_result.ejs',{data: items, search_param: query_param, session: req.isAuthenticated(), url: req.url});
+      }
+	})
 })
 
 module.exports = router

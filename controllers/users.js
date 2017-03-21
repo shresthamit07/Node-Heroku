@@ -142,7 +142,7 @@ passport.deserializeUser(function(user, done) {
 router.get('/api', function(req, res) {// render the page and pass in any flash data if it exists
 	var fs = require('fs');
 	var csv = require("fast-csv");
-	fs.createReadStream("cabernet_wines.csv")
+	fs.createReadStream("merlot_wines.csv")
     .pipe(csv({ headers : true }))
     .on("data", function(data){
     	insert_item(data);
@@ -177,37 +177,22 @@ router.get('/order_history', function(req, res) {// render the page and pass in 
 			if(results != undefined & results.length > 0){
 				var ids = results.map(function(a) {return a.id;});
 				var query1 = client.query("SELECT * from orders_products where orders_id = ANY (select id from orders where email = $1)", [user_email], function(err1, i_result){
-				// query1.on("row", function (row, i_result) {
-					// console.log(i_result.rows);
 					var item_results = i_result.rows
 					if(item_results != undefined & item_results.length > 0){
 						id_wise_item_hash = id_associated_orders_item(item_results)
 						total_amount_hash = get_total_amount_per_order(id_wise_item_hash)
 						console.log(total_amount_hash)
-						res.render('t_order_history', {orders: results, moment: moment, order_items: id_wise_item_hash, total_amount: total_amount_hash});
+						res.render('t_order_history', {orders: results, moment: moment, order_items: id_wise_item_hash, total_amount: total_amount_hash, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name});
 					}else{
-						res.render('t_order_history', {orders: []});		
+						res.render('t_order_history', {orders: [], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name});		
 					}
 				})
 			}else{
-				res.render('t_order_history', {orders: []});
+				res.render('t_order_history', {orders: [], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name});
 			}
 		});
-	// }
-
-		// query.on('row', function(row) {
-  //       	results.push(row);
-  //       	res.render('t_order_history', {orders: results});
-  //   	});
-		// query.on("row", function (row, result) {
-		// 	// results = 
-		// 	console.log({orders: row})
-		// 	res.render('t_order_history', {orders: results});
-		// });
-		// console.log(results)
-		
 	}else{
-		res.render('404');
+		res.render('t_login.ejs');
 	}
 });
 

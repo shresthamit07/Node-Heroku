@@ -3,6 +3,7 @@ var express = require('express')
   , validator = require('express-validator');
 var session = require('express-session');
 var app = module.exports = express();
+var moment = require('moment');
 
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
@@ -51,7 +52,6 @@ router.post('/checkout', function(req, res) {
 			});
 	    query.on("row", function (row, result) {
 	    	var order_items = req.cookies.item_details;
-	    	console.log(order_items)
 	    	if(order_items != undefined){
 	    		for(var i = 0; i < order_items.length;i++){
 			    	var query1 = client.query('INSERT INTO orders_products(orders_id, products_id, products_name, products_price, quantity, image, volume) values($1, $2, $3, $4, $5, $6, $7)',
@@ -61,52 +61,7 @@ router.post('/checkout', function(req, res) {
 		  				return res.render('t_checkout', {error_msg: 'Something went wrong. Try again!'});
 					});
 			    }
-
-			    var query2 = client.query('SELECT email from users where is_admin is True');
-				query2.on("row", function (row, result) {
-					console.log('.....')
-					console.log(row.email)
-					console.log('.....')
-					//send email
-					var transport = nodemailer.createTransport({
-					service: 'gmail',
-					auth: {
-					user: 'liquorzone.owner@gmail.com',
-					pass: 'liquorzone07'
-					}
-					});
-
-
-					// for customer
-					ejs.renderFile(customer_template, (err, html) => {
-					      if (err) console.log(err); // Handle error
-
-					      console.log(`HTML: ${html}`);
-
-					      transport.sendMail({
-					      	from: 'liquorzone.owner@gmail.com',
-					      	to: 'liquorzone.owner@gmail.com',
-					      	subject: 'EJS Customer Test File',
-					        html: html
-					      })
-					    });
-
-					// for admin
-					ejs.renderFile(admin_template, (err, html) => {
-					      if (err) console.log(err); // Handle error
-
-					      console.log(`HTML: ${html}`);
-
-					      transport.sendMail({
-					      	from: 'liquorzone.owner@gmail.com',
-					      	to: row.email,
-					      	subject: 'EJS Admin Test File',
-					        html: html
-					      })
-					    });
-					// end of email sending
-
-				});
+			    send_email(row.id);
 			}
 			res.clearCookie('item_details');
     	});
@@ -140,4 +95,77 @@ router.get('/send', function(req, res, next) {
 	    });
 	res.redirect('/');
 });
+
+var send_email = function(order_id){
+	var results = [];
+	var receivers = ['liquorzone.owner@gmail.com'];
+	var id_wise_item_hash = {};
+	var total_amount_hash = {};
+	var query = client.query("SELECT * from orders where id = $1", [order_id],function(err, result){
+			if(err) { console.log('error');return next(err)}
+			results = result.rows
+			if(results != undefined & results.length > 0){
+				var query1 = client.query("SELECT * from orders_products where orders_id = $1", [order_id], function(err1, i_result){
+					var item_results = i_result.rows
+					if(item_results != undefined & item_results.length > 0){
+						id_wise_item_hash = id_associated_orders_item(item_results)
+						total_amount_hash = get_total_amount_per_order(id_wise_item_hash)
+
+					var query2 = client.query('SELECT email from users where is_admin is True', function(err, e_result){
+						receivers.push(e_result.rows)
+					});
+					receivers.push(results[0].email)
+					var transport = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+					user: 'liquorzone.owner@gmail.com',
+					pass: 'liquorzone07'
+					}
+					});
+					ejs.renderFile(admin_template, {orders: results, moment: moment, order_items: id_wise_item_hash, total_amount: total_amount_hash}, (err, html) => {
+					      if (err) console.log(err); // Handle error
+
+					      transport.sendMail({
+					      	from: 'liquorzone.owner@gmail.com',
+					      	to: receivers,
+					      	subject: 'New order has been placed.',
+					        html: html
+					      })
+					    });
+					}
+				});
+			}
+	});
+};
+
+// returns hash {'1' => [orders with id 1], '2'=> [orders with id 2]}
+var id_associated_orders_item = function(data){
+	var orders_hash  = {};
+	for(var i = 0, l = data.length; i < l; i++) {
+		var order_id = data[i].orders_id;
+		if(orders_hash[order_id] != undefined){
+			orders_hash[order_id].push(data[i]);
+		}else{
+			orders_hash[order_id] = [data[i]];
+		}
+	}
+	return orders_hash
+
+};
+
+var get_total_amount_per_order = function(data){
+	var total_hash  = {};
+
+	Object.keys(data).forEach(function (key) {
+		var total_amount = 0;
+		for(var j = 0, l = data[key].length; j < l; j++) {
+			var price = data[key][j].products_price;
+			var qty= data[key][j].quantity;
+			total_amount = total_amount + (price * qty);
+		}
+		total_hash[key] = total_amount 
+	})
+	return total_hash
+}
+
  module.exports = router
