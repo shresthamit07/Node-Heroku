@@ -17,7 +17,7 @@
 						<%if(typeof category != 'undefined') {%>
 						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?c=<%=countries[i].lower%>" id='<%= countries[i].lower%>'><%= countries[i].lower%></a></label>
 						<%} else {%>
-							<label class="checkbox"><a href="/products?c=<%=countries[i].lower%>" id='<%= countries[i].lower%>'><%= countries[i].lower%></a></label>
+							<label class="checkbox"><a href="/search/products?c=<%=countries[i].lower%>" id='<%= countries[i].lower%>'><%= countries[i].lower%></a></label>
 						<%}%>
 						<% } %>
 					</div>
@@ -33,11 +33,11 @@
 						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=60,80">$60 - $80</a></label>
 						<label class="checkbox"><a href="/products/<%=category.split(' ').join('_')%>?p=80, 10000">Above $80</a></label>
 					<%} else {%>
-						<label class="checkbox"><a href="/products?p=0,20">Up to $20</a></label>
-						<label class="checkbox"><a href="/products?p=20,40">$20 - $40</a></label>
-						<label class="checkbox"><a href="/products?p=40,60">$40 - $60</a></label>
-						<label class="checkbox"><a href="/products?p=60,80">$60 - $80</a></label>
-						<label class="checkbox"><a href="/products?p=80, 10000">Above $80</a></label>
+						<label class="checkbox"><a href="/search/products?p=0,20">Up to $20</a></label>
+						<label class="checkbox"><a href="/search/products?p=20,40">$20 - $40</a></label>
+						<label class="checkbox"><a href="/search/products?p=40,60">$40 - $60</a></label>
+						<label class="checkbox"><a href="/search/products?p=60,80">$60 - $80</a></label>
+						<label class="checkbox"><a href="/search/products?p=80, 10000">Above $80</a></label>
 					<%}%>
 					</div>
 			</section>

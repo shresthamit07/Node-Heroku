@@ -73,4 +73,46 @@ router.get('/search', function(req, res) {
 	})
 })
 
+router.get('/search/products', function(req, res) {
+	console.log(req.query.c)
+	var items = [];
+	var search_param = req.query.query;
+	var country_param = req.query.c;
+	var price_param = req.query.p;
+	if(country_param != undefined){
+		var query = client.query("SELECT * from products where LOWER(country)=$1 limit 10", [country_param],function(err, result){
+    	items = result.rows	
+    	if(req.isAuthenticated()){
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+	      }
+	      else{
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      }
+    	})	
+	}else if(price_param != undefined){
+		var p1=price_param.split(',');
+		var query = client.query("select * from products where price >= $1 and price < $2 limit 10", [p1[0], p1[1]],function(err, p_result){
+    	items = p_result.rows
+    	if(req.isAuthenticated()){
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+	      }
+	      else{
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      }
+    	})
+	}else{
+
+		var query = client.query("SELECT * from products where LOWER(name || country || description || type || category || price || volume) ILIKE $1 limit 10", ['%'+search_param+'%'],function(err, s_result){
+	    	items = s_result.rows
+	  
+      if(req.isAuthenticated()){
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+	      }
+	      else{
+	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      }
+	    })
+	}
+})
+
 module.exports = router

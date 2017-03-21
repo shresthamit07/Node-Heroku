@@ -62,6 +62,30 @@ router.post('/register', function(req, res) {
 });
 
 
+
+router.post('/update', function(req, res) {
+	var results = [];
+	var name = req.body.first_name;
+
+	//validate the presence of every field
+	req.checkBody('first_name', 'First Name is required').notEmpty();
+	req.checkBody('last_name', 'Last Name is required').notEmpty();
+	req.checkBody('m_number', 'Phone number is required').notEmpty();
+	req.checkBody('address', 'Address is required').notEmpty();
+
+	var errors = req.validationErrors();
+	if(errors){
+		console.log(errors)
+		res.render('t_register', {errors: errors})
+	}
+	else{
+
+	  var user = req.body;
+	    client.query('UPDATE users SET first_name=($1), last_name=($2), phone=($3), address=($4) where email=($5)',[user.first_name, user.last_name, user.m_number, user.address, req.user.email]);
+	    res.redirect('/profile')
+	 }
+});
+
 router.get('/login', function(req, res, next) {
 	console.log(req.user)
 	console.log(req.isAuthenticated());
@@ -156,9 +180,16 @@ router.get('/api', function(req, res) {// render the page and pass in any flash 
 
 router.get('/profile', function(req, res) {// render the page and pass in any flash data if it exists
 	if(req.isAuthenticated()){
-		res.render('t_profile');
+		// res.render('t_profile');
+		var user_email = req.user.email
+		var query = client.query("SELECT * from users where email = $1", [user_email],function(err, result){
+			var profile_details = result.rows;
+			console.log('*******')
+			console.log(profile_details[0]);
+			res.render('t_profile.ejs', {data: profile_details[0], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+		});
 	}else{
-		res.render('404');
+		res.render('t_login');
 	}
 	
 });

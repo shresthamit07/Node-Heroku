@@ -28,9 +28,11 @@
 	<% include t_sidebar.ejs %>
 </div>
 <!-- products -->
-<div class='s_result'>
-	Search Results for: <span class='s_param'><%= search_param%></span>
-</div>
+<%if(typeof search_param != 'undefined') {%>
+	<div class='s_result'>
+		Search Results for: <span class='s_param'><%= search_param%></span>
+	</div>
+<%}%>
 <%if(data.length > 0) {%>
 	<div class="products">
 		<div class="search_products">
