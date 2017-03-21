@@ -15,16 +15,12 @@ router.get('/products/:category', function(req, res, next) {
   var items = [];
   var category = req.params.category;
   var countries = [];
-  console.log(category);
   if(typeof category == 'undefined'){
   	console.log('invalid params')
   }else{
   	var modified_category = category.split('_').join(' ')
-  	console.log(modified_category);
-    console.log(req.query.c != undefined)
     if(req.query.p != undefined){
       var price_range = req.query.p.split(',')
-      console.log(price_range[0])
       client.query('SELECT * from products where category = $1 and (price >= $2 and price < $3)', [modified_category, price_range[0], price_range[1]], function (err, result) {
         if(err) { console.log('error');res.render('404.ejs')}
         items = result.rows
@@ -61,6 +57,54 @@ router.get('/products/:category', function(req, res, next) {
     }
   }
 });
+
+router.get('/products/type/:p_type', function(req, res, next) {
+  var items = [];
+  var pr_type = req.params.p_type;
+  var countries = [];
+  if(typeof pr_type == 'undefined'){
+    console.log('invalid params')
+  }else{
+    var modified_prtype = pr_type.split('_').join(' ')
+    if(req.query.p != undefined){
+      var price_range = req.query.p.split(',')
+      client.query('SELECT * from products where type = $1 and (price >= $2 and price < $3)', [modified_prtype, price_range[0], price_range[1]], function (err, result) {
+        if(err) { console.log('error');res.render('404.ejs')}
+        items = result.rows
+        if(req.isAuthenticated()){
+          res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+        }
+        else{
+         res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
+        }
+      })
+    }
+    else if(req.query.c != undefined){
+      client.query('SELECT * from products where type = $1 and LOWER(country) = $2', [modified_prtype, req.query.c], function (err, result) {
+        if(err) { console.log('error');return next(err)}
+        items = result.rows
+        if(req.isAuthenticated()){
+          res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+        }
+        else{
+         res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
+        }
+      })
+    }else{
+      client.query('SELECT * from products where type = $1', [modified_prtype], function (err, result) {
+        if(err) { console.log('error');return next(err)}
+        items = result.rows
+          if(req.isAuthenticated()){
+            res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+          }
+          else{
+           res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
+          }
+        });
+    }
+  }
+});
+
 
 router.get('/products/:category/:id', function(req, res, next) {
   

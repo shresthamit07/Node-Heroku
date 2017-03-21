@@ -45,7 +45,9 @@ const pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpassword@localhost/liquorzone';
 
 const client = new pg.Client(connectionString);
+const client1 = new pg.Client(connectionString);
 client.connect();
+client1.connect();
 
 // // Your database configuration
 var DATABASE_URL = 'postgres://postgres:testpassword@localhost/liquorzone';
@@ -56,6 +58,9 @@ app.locals = {
     },
     p_country: {
         countries: get_countries()
+    },
+    p_type: {
+        types: get_ptypes()
     }
 };
 function get_pcategory(){
@@ -74,7 +79,7 @@ function get_pcategory(){
 function get_countries(){
     c_results = []
 
-    var query = client.query('SELECT DISTINCT LOWER(country) from products');
+    var query = client1.query('SELECT DISTINCT LOWER(country) from products');
     query.on("row", function (result) {
         c_results.push(result);
     });
@@ -83,6 +88,20 @@ function get_countries(){
         client.end();
     });
     return c_results;
+};
+
+function get_ptypes(){
+    t_results = []
+    var query = client1.query('SELECT DISTINCT type from products');
+    query.on("row", function (result) {
+        t_results.push(result);
+    });
+
+    query.on("end", function (results) {
+        client.end();
+    });
+    return t_results;
+
 }
 
 app.get('/design', function(req, res){

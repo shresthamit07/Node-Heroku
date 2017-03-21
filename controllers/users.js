@@ -202,7 +202,7 @@ router.get('/order_history', function(req, res) {// render the page and pass in 
 	if(req.isAuthenticated()){
 		user_email = req.user.email;
 		console.log(user_email)
-		var query = client.query("SELECT * from orders where email = $1", [user_email],function(err, result){
+		var query = client.query("SELECT * from orders where email = $1 order by created_at desc", [user_email],function(err, result){
 			if(err) { console.log('error');return next(err)}
 			results = result.rows
 			if(results != undefined & results.length > 0){

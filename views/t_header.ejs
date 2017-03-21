@@ -57,10 +57,7 @@
 					<% } else {%>
 						<li><a  class="top_link" href="/register">Register</a>|</li>
 						<li><a  class="top_link" href="/login">Login</a></li>
-					<%}%>
-					<!-- <li><a  class="top_link" href="login">Login</a> -->
-					<!-- <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
-					<li class="top_link"><a href="login.html">My Account</a></li> -->					
+					<%}%>				
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -96,16 +93,27 @@
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
 			<li class="active grid"><a class="color1" href="/">Home</a></li>
-			<li class="grid"><a class="color1" href="#">Products</a>
+			<li class="grid"><a class="color1" href="/products">Products</a>
 				<div class="megapanel">
 					<div class="row">
 						<div class="col1">
 							<div class="h_nav">
 							<% var names = p_category.names; %>
-								<h4>Popular Brands</h4>
+								<h4>Popular Categories</h4>
 								<ul>
 								<% for(var i=0; i < names.length; i++) { %>
 									<li id= <%=names[i].category.split(' ').join('_')%>><a href="/products/<%= names[i].category.split(' ').join('_') %>"><%= names[i].category %></a></li>
+								<% } %>
+								</ul>	
+							</div>							
+						</div>
+						<div class="col1">
+							<div class="h_nav">
+								<h4>Wine Types</h4>
+								<% var types = p_type.types; %>
+								<ul>
+									<% for(var i=0; i < types.length; i++) { %>
+									<li id= <%=types[i].type.split(' ').join('_')%>><a href="/products/type/<%= types[i].type.split(' ').join('_') %>"><%= types[i].type %></a></li>
 								<% } %>
 								</ul>	
 							</div>							
