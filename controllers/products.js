@@ -25,10 +25,18 @@ router.get('/products/:category', function(req, res, next) {
         if(err) { console.log('error');res.render('404.ejs')}
         items = result.rows
         if(req.isAuthenticated()){
-          res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+          res.render('t_pcategory.ejs',{data: items, category: modified_category, ratings: ratings_in_hash_format, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+        })
         }
         else{
-         res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+         res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_category, url: req.url}); 
+       })
         }
       })
     }
@@ -37,22 +45,34 @@ router.get('/products/:category', function(req, res, next) {
         if(err) { console.log('error');return next(err)}
         items = result.rows
         if(req.isAuthenticated()){
-          res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+          res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format,category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+        })
         }
         else{
-         res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+         res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_category, url: req.url}); 
+        })
         }
       })
     }else{
     	client.query('SELECT * from products where category = $1', [modified_category], function (err, result) {
       	if(err) { console.log('error');return next(err)}
       	items = result.rows
+        client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
           if(req.isAuthenticated()){
-      		  res.render('t_pcategory.ejs',{data: items, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
+      		  res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_category, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
           }
           else{
-           res.render('t_pcategory.ejs',{data: items, category: modified_category, url: req.url}); 
+           res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_category, url: req.url}); 
           }
+        })
         });
     }
   }
@@ -72,10 +92,18 @@ router.get('/products/type/:p_type', function(req, res, next) {
         if(err) { console.log('error');res.render('404.ejs')}
         items = result.rows
         if(req.isAuthenticated()){
-          res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+          res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+        })
         }
         else{
-         res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+         res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_prtype, url: req.url}); 
+        })
         }
       })
     }
@@ -84,21 +112,37 @@ router.get('/products/type/:p_type', function(req, res, next) {
         if(err) { console.log('error');return next(err)}
         items = result.rows
         if(req.isAuthenticated()){
-          res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+          res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+        })
         }
         else{
-         res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
-        }
+          client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+         res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_prtype, url: req.url}); 
+        })
+      }
       })
     }else{
       client.query('SELECT * from products where type = $1', [modified_prtype], function (err, result) {
         if(err) { console.log('error');return next(err)}
         items = result.rows
           if(req.isAuthenticated()){
-            res.render('t_pcategory.ejs',{data: items, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+            client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+            res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, session: req.isAuthenticated(), category: modified_prtype, id: req.user.id, name: req.user.first_name, url: req.url});
+          })
           }
           else{
-           res.render('t_pcategory.ejs',{data: items, category: modified_prtype, url: req.url}); 
+            client.query('SELECT * from ratings', function (err, rate_result) {
+                ratings_value = rate_result.rows;
+                ratings_in_hash_format = get_rating_hash(ratings_value)
+           res.render('t_pcategory.ejs',{data: items, ratings: ratings_in_hash_format, category: modified_prtype, url: req.url}); 
+          })
           }
         });
     }

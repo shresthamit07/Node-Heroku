@@ -9,6 +9,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/js/t_register.js"></script>
 	<script src="/js/t_pcategory.js"></script>
+	<!-- for rating -->
+	<link rel="stylesheet" href="/css/jquery.rateyo.min.css"/>
 	<%
 		var prepareDetails = function(data_item){
 			console.log(data_item)
@@ -23,6 +25,12 @@
 	}
 	%>
      <% include t_header.ejs %>
+ <style>
+	#rating{
+	    margin-left: 92px;
+	}
+
+</style>
  </head>
 <div class='sidebar'>
 	<% include t_sidebar.ejs %>
@@ -49,6 +57,10 @@
 								<div>
 									<span class='volume'><%=data[i].volume%></span>
 								</div>
+								<%rvalue = ratings[data[i].id] || 0%>
+								<div id='rating' class='i_detail'>
+									 <div class="readonly_rateyo" data-rvalue =<%=rvalue%>></div>
+								</div>
 								<div class='p_name' title='<%= data[i].name%>'><h4><%= data[i].name%></h4></div>
 								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"><i></i><span class=" item_price valsa"> $<%= data[i].price%></span></a></p>
 							</div>	
@@ -66,5 +78,34 @@
 		<p> No Result Found!! Try another search.
 	</div>
 <%}%>
+
+<script type="text/javascript" src="/js/jquery.rateyo.js"></script>
+<script>
+
+      $(function () {
+
+        $(".rateyo").rateYo({
+        	rating: 2,
+        	fullStar: true,
+        	starWidth: '16px',
+        }).on("rateyo.set", function (e, data) { console.log(data.rating); });
+
+        $(".readonly_rateyo").each( function() {
+    		var rating = $(this).attr("data-rvalue");
+    		$(this).rateYo(
+	        {
+	            rating: rating,
+	            fullStar: true,
+        		starWidth: '16px',
+        		readOnly: true
+	        }
+	    	);
+		});
+
+
+
+      });
+    </script>	
+
 </body>
 </html>
