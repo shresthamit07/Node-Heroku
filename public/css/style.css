@@ -902,9 +902,12 @@ p.non span{
 /*-- footer --*/
 .footer{
   background:#333333;
-  padding: 2em 0;
+  padding: 1em 0;
   border-bottom: 1px solid #5c5c5c;
-  margin:5em 0 0;
+  margin-top:5em;
+  color: white;
+  font-size: 13px;
+  text-align: center;
 }
 .footer-grid h6{
 	font-size:1.5em;

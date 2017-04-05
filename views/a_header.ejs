@@ -1,0 +1,59 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/admin_page.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="/js/move-top.js"></script>
+    <script type="text/javascript" src="/js/easing.js"></script>
+    <script src="/js/t_header.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){     
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+         setInterval(function() {
+                  localStorage.clear();
+                }, 60000); 
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- start menu -->
+    <link href="/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/js/megamenu.js"></script>
+    <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+    <script src="/js/menu_jquery.js"></script>
+    <script src="/js/simpleCart.min.js"> </script>
+    <link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+ </head>
+<div class="top_bg">
+	<div class="container">
+		<div class="message_div"></div>
+		<div class="header_top-sec">
+			<div class="top_right">
+				<div class="logo">
+		 			<a href="/admin">LiquorZone.com</a>			 
+				</div>
+			</div>
+			<div class="top_left">
+				<ul>
+						<li><a  class="top_link" href="/orders">Orders</a></li>
+						<li><a  class="top_link" href="#">Products</a></li>
+						<li><a  class="top_link" href="#">Account</a></li>
+						<li><a  class="top_link" href="/logout">Logout</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>

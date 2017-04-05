@@ -63,6 +63,35 @@ CREATE TABLE orders_products (
     updated_at timestamp default current_timestamp NOT NULL
 );
 
+CREATE TABLE products_purchase (
+    id SERIAL NOT NULL primary key unique,
+    products_id int NOT NULL,
+    purchase_count int NOT NULL,
+    category varchar(50) NOT NULL,
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
+);
+
+CREATE TABLE ratings (
+    id SERIAL NOT NULL primary key unique,
+    products_id int NOT NULL,
+    users_id int NOT NULL,
+    r_value int NOT NULL,
+    r_comment text,
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
+);
+
+CREATE TABLE recommendations (
+    id SERIAL NOT NULL primary key unique,
+    users_id int NOT NULL,
+    products_id int NOT NULL,
+    weighted_score numeric(5,2) NOT NULL,
+    created_at timestamp default current_timestamp NOT NULL,
+    updated_at timestamp default current_timestamp NOT NULL
+
+    );
+
 ALTER TABLE users
   ADD COLUMN "is_admin" BOOLEAN DEFAULT FALSE;
 

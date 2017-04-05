@@ -54,7 +54,7 @@
 	font-size: 11px!important;
   line-height: 1.465!important;
 }
-.o_date, .o_item_total, .o_shipping_charge, .o_total, .o_address{
+.o_date, .o_item_total, .o_shipping_charge, .o_total, .o_address, .o_cc{
 	  margin-right: 2%;
     float: left;
     min-height: 1px;

@@ -7,6 +7,10 @@
 	<link rel="stylesheet" href="/css/t_products.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/recommend_page.css"/>
+	<script src="/js/recommend_page.js"></script>
 	<script src="/js/t_register.js"></script>
 	<script src="/js/t_pcategory.js"></script>
 	<%
@@ -23,6 +27,8 @@
 	%>
      <% include t_header.ejs %>
  </head>
+ <body>
+ <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 <div class='sidebar'>
 	<% include t_sidebar.ejs %>
 </div>
@@ -61,5 +67,34 @@
 		</div>
 	</div>
 <%}%>
+<!-- recommendation -->
+<div class="products">
+		<div class="container">
+		<div class='recommend_div'>
+			You may also like:
+		</div>
+			<div class="products-grids">
+				<div class="col-md-12 products-grid-left-index">
+					<div class="products-grid-lft recommend_products">
+					<% for(var i=0; i < recommended_items.length; i++) { %>
+						<div class="products-grd-index">
+							<div class="p-one simpleCart_shelfItem prd">
+								<a href="/products/<%=recommended_items[i].category.split(' ').join('_')%>/<%=recommended_items[i].id%>">
+									<img src="/images/liquors/<%=recommended_items[i].image%>" alt="" class="img-responsive recommend_img" />
+								</a>
+								<div>
+									<span class='volume'><%=recommended_items[i].volume%></span>
+								</div>
+								<div class='p_name' title='<%= recommended_items[i].name%>'><h4><%= recommended_items[i].name%></h4></div>
+								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(recommended_items[i]))%>' href="#"><i></i><span class=" item_price valsa"> $<%= recommended_items[i].price%></span></a></p>
+							</div>	
+						</div>
+						<% } %>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
 </body>
 </html>

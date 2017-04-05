@@ -73,7 +73,11 @@ router.get('/search/products', function(req, res) {
 	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
 	      }
 	      else{
-	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      	client.query('select * from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc AND LOWER(country)=$1',[country_param], function (err, r_result) {
+              recommended_items = r_result.rows;
+              res.render('t_products.ejs',{data: items, search_param: search_param, recommended_items: recommended_items, session: req.isAuthenticated(), url: req.url});
+            })
+	      	// res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
 	      }
     	})	
 	}else if(price_param != undefined){
@@ -84,7 +88,11 @@ router.get('/search/products', function(req, res) {
 	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
 	      }
 	      else{
-	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      	client.query('select * from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc', function (err, r_result) {
+              recommended_items = r_result.rows;
+              res.render('t_products.ejs',{data: items, recommended_items: recommended_items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+            })
+	      	// res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
 	      }
     	})
 	}else{
@@ -96,7 +104,11 @@ router.get('/search/products', function(req, res) {
 	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
 	      }
 	      else{
-	      	res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
+	      	client.query('select * from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc', function (err, r_result) {
+              recommended_items = r_result.rows;
+              res.render('t_products.ejs',{data: items, search_param: search_param, recommended_items: recommended_items, session: req.isAuthenticated(), url: req.url});
+            })
+	      	// res.render('t_search_result.ejs',{data: items, search_param: search_param, session: req.isAuthenticated(), url: req.url});
 	      }
 	    })
 	}
@@ -111,7 +123,12 @@ router.get('/products', function(req,res){
       		  res.render('t_products.ejs',{data: items, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name, url: req.url});
           }
           else{
-           res.render('t_products.ejs',{data: items, session: req.isAuthenticated(), url: req.url}); 
+          	//most purchased item
+            client.query('select * from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc', function (err, r_result) {
+              recommended_items = r_result.rows;
+              res.render('t_products.ejs',{data: items, recommended_items: recommended_items, session: req.isAuthenticated(), url: req.url});
+            })
+           // res.render('t_products.ejs',{data: items, session: req.isAuthenticated(), url: req.url}); 
           }
 
   	});

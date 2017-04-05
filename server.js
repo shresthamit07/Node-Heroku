@@ -8,7 +8,7 @@ var session = require('express-session');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
-var moment = require('moment');
+// var moment = require('moment');
 app.use(flash());
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
@@ -98,7 +98,7 @@ function get_ptypes(){
     });
 
     query.on("end", function (results) {
-        client.end();
+        client1.end();
     });
     return t_results;
 

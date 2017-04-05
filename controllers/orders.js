@@ -54,6 +54,12 @@ router.post('/checkout', function(req, res) {
 	    	var order_items = req.cookies.item_details;
 	    	if(order_items != undefined){
 	    		for(var i = 0; i < order_items.length;i++){
+	    			console.log('entered')	    	
+	    			update_purchase_product_db(order_items[i]);
+	    			update_quantity(order_items[i])
+	    			if(req.isAuthenticated()){
+	    				insert_default_rating(order_items[i], req.user.id);
+	    			}
 			    	var query1 = client.query('INSERT INTO orders_products(orders_id, products_id, products_name, products_price, quantity, image, volume) values($1, $2, $3, $4, $5, $6, $7)',
 			    	[row.id, order_items[i].id, order_items[i].name, order_items[i].price, order_items[i].qty, order_items[i].image, order_items[i].volume]);
 			    	query1.on('error', function(err) {
@@ -137,6 +143,53 @@ var send_email = function(order_id){
 			}
 	});
 };
+
+var update_purchase_product_db = function(data){
+	console.log('entered twice')
+	var insert_new = true;
+	var query3 = client.query("UPDATE products_purchase SET purchase_count = purchase_count + $1 WHERE products_id=$2  Returning *", [data.qty, data.id],function(err, result){
+		var results = result.rows;
+		if(results.length == 0){
+			var query4 = client.query("INSERT into products_purchase(products_id, purchase_count, category) values ($1, $2, $3)", [data.id, data.qty, data.category])
+			query4.on('error', function(err) {
+				console.log('Query error: ' + err);
+			});
+
+			query4.on('row', function(result) {
+				console.log('success');
+
+			});
+		}
+	})
+}
+
+var insert_default_rating = function(data, user_id){
+	console.log(data.id)
+	var query5 = client.query("INSERT into ratings(products_id, users_id, r_value) values ($1, $2, $3)", [data.id, user_id, 4])
+		query5.on('error', function(err) {
+			console.log('Query error: ' + err);
+		});
+
+		query5.on('row', function(result) {
+			console.log('Inserted into rating table.');
+
+		});
+}
+
+var update_quantity = function(data){
+	console.log('quantity')
+	console.log(data.id);
+	var query6 = client.query("UPDATE products SET quantity = quantity - $1 WHERE id=$2", [data.qty, data.id],function(err, result){
+		query6.on('error', function(err) {
+			console.log('Query error: ' + err);
+		});
+
+		query6.on('row', function(result) {
+			console.log('Updated products table.');
+
+		});
+	})
+}
 
 // returns hash {'1' => [orders with id 1], '2'=> [orders with id 2]}
 var id_associated_orders_item = function(data){

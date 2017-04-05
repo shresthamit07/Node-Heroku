@@ -4,11 +4,28 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/t_item_details.css">
+
+	<link rel="stylesheet" href="/css/t_products.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/js/t_register.js"></script>
 	<script src="/js/t_pcategory.js"></script>
 	<script src="/js/t_cartview.js"></script>
+
+	<link rel="stylesheet" href="/css/jquery.rateyo.min.css"/>
+
+	<!-- for scorllable -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+
+	<!-- Add the slick-theme.css if you want default styling -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/recommend_page.css"/>
+	<script src="/js/recommend_page.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css"> -->
+<!-- Latest compiled and minified JavaScript -->
+
 	<%
 		var prepareDetails = function(data_item){
     var item = {id: data_item.id,
@@ -21,9 +38,86 @@
     return item;
 	}
 	%>
+	<style>
+	#rating{
+	    margin-left: 80px;
+	}
+
+	.products-grd-index{
+		width: 100%;
+	}
+	.slick-prev { 
+		height: 50px;
+		margin-top: -422px;
+	    margin-left: 136px;
+		transform: rotate(90deg);
+	}
+	.slick-next{
+		height: 50px;
+		margin-top: 105px;
+	    margin-right: 136px;
+		transform: rotate(90deg);
+	}
+	.slick-prev:before, .slick-next:before { 
+		color: red !important;
+		margin-top: -200px;
+	    margin-left: 136px;
+	}
+	.col-md-3{
+		margin-top: -40px !important;
+	}
+	.recommend_products_vertical{
+		font-size: 14px !important;
+	}
+
+
+	.rating {
+	    float:left;
+	    margin-top: 4px;
+	    margin-left: -20px;
+	}
+
+	#review_div, .review_section{
+		margin-left: 70px;
+	}
+	#review_div h3{
+		color: #111;
+	}
+	.r_comment{
+		color: #a0a03e;
+		font-size 10px;
+		font-family: sans-serif;
+		font-style: italic;
+		margin-top: 8px;
+	}
+	.reviews{
+		margin-top: -35px;
+		margion-botton: 10px;
+	}
+	.r_value{
+		margin-left: -8px;
+    	margin-top: 7px;
+	}
+	.r_user{
+		font-size: 12px;
+	    font-family: sans-serif;
+	    font-style: italic;
+	     margin-top: 8px;
+	}
+	#comment{
+		width: 400px;
+		font-size: 14px;
+	}
+
+	.rating_submit{
+		margin-top: 9px;
+	}
+	</style>
    <% include t_header.ejs %>
  </head>
 <body>
+ <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
 <!-- check-out -->
 <div class="container">
 	<div class="check">
@@ -47,8 +141,9 @@
 							<div id='available_qty' class='i_detail'>
 								<p>Available in Stock :<%= data[i].quantity %></p>
 							</div>
-							<div id='rating' class='i_detail'>
-								<p>Rating :</p>
+							<%rvalue = ratings[data[i].id] || 0%>
+							<div id='rating_in_detail' class='i_detail'>
+								 <div class="readonly_rateyo"  data-rvalue =<%=rvalue%>></div>
 							</div>
 							<div id='description' class='i_detail'>
 								<p><%= data[i].description %> </p>
@@ -57,15 +152,169 @@
 								<a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"> Add To Cart</a>
 								<!-- <a href="#">Add To Cart</a> -->
 							</div>
+							<br>
 						</div>
 					   <div class="clearfix"></div>
-											
 				  </div>
 			 </div>
 			<% } %>	
 		</div>
+
+		<div class="col-md-3">
+		<div class='recommend_div'>
+			You may also like:
+		</div>
+			<div class="products-grids">
+				<div class="col-md-12 products-grid-left-index">
+					<div class="products-grid-lft recommend_products_vertical">
+					<% for(var i=0; i < recommended_items.length; i++) { %>
+						<div class="products-grd-index">
+							<div class="p-one simpleCart_shelfItem prd">
+								<a href="/products/<%=recommended_items[i].category.split(' ').join('_')%>/<%=recommended_items[i].id%>">
+									<img src="/images/liquors/<%=recommended_items[i].image%>" alt="" class="img-responsive recommend_img" />
+								</a>
+								<div>
+									<span class='volume'><%=recommended_items[i].volume%></span>
+								</div>
+								<%r_rvalue = ratings[recommended_items[i].id] || 0%>						
+								<div id='rating' class='i_detail'>
+									 <div class="readonly_rateyo"  data-rvalue =<%=r_rvalue%>></div>
+								</div>
+								<div class='p_name' title='<%= recommended_items[i].name%>'><h4><%= recommended_items[i].name%></h4></div>
+								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(recommended_items[i]))%>' href="#"><i></i><span class=" item_price valsa"> $<%= recommended_items[i].price%></span></a></p>
+							</div>	
+						</div>
+						<% } %>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
 		<div class="clearfix"> </div>
 	</div>
 </div>
+
+<div id="review_div" class="review_section">
+	<% if (typeof rating_details != 'undefined'){%>
+	<p><h3> Reviews:
+	</h3></p>
+	<hr>
+	</br>
+	<% for(var j=0; j < rating_details.length; j++) { %>
+	<div class="reviews">
+		<div class="r_value">
+		<%r_value = rating_details[j].r_value || 0%>						
+			<div class="readonly_rateyo" data-rvalue=<%=r_value%>></div>
+		</div>
+		<div class="r_user">
+			<p>by <%=rating_details[j].users_id%></p>
+		</div>
+		<div class='r_comment'>
+			<p>	<%=rating_details[j].r_comment%></p>
+		</div>
+	</div>
+	<br>
+	<br>
+	<%}%>
+	<%}%>
+</div>
+<% if (typeof session != 'undefined' && session){%>
+<div class='comments review_section'>
+	<form method='post'>
+		<div class="new_r_value">
+			<span class="rvalue_to_submit hidden" data-rvalue_to_submit = '0' data-id=<%=data[0].id%>></span>
+			Select Rating Value:
+			<div class="rateyo"></div>
+		</div>
+	 	Comment:<br />
+	 	<textarea name='comment' id='comment'></textarea><br />
+			<div class="fgh rating_submit">
+				<a class="rate_it" href="#"> Rate it!</a>
+			</div>
+	</form>
+</div>
+<%}%>
+<!-- footer -->
+	<div class="footer">
+		copyright @ liquorzone.com 2017
+		<div class="">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="/js/jquery.rateyo.js"></script>
+<script>
+
+      $(function () {
+
+        $(".rateyo").rateYo({
+        	rating: 0,
+        	fullStar: true,
+        	starWidth: '16px',
+        }).on("rateyo.set", function (e, data) { console.log(data.rating); });
+
+          $(".readonly_rateyo").each( function() {
+    		var rating = $(this).attr("data-rvalue");
+    		$(this).rateYo(
+	        {
+	            rating: rating,
+	            fullStar: true,
+        		starWidth: '16px',
+        		readOnly: true
+	        }
+	    	);
+		});
+
+        $('.rateyo').on('click', function(e){
+        	$('.rvalue_to_submit').attr('data-rvalue_to_submit',$(this).rateYo("option", "rating"));
+        });
+
+        $(".rate_it").on('click', function (event) {
+                $('div.message_div').hide();
+                event.preventDefault();
+                var rate_value= $('.rvalue_to_submit').attr('data-rvalue_to_submit')
+                var comment=$('#comment').val()
+                var products_id = $('.rvalue_to_submit').attr('data-id')
+                if(parseInt(rate_value) < 1){
+                	alert("Please provide both rating value and comment.")
+                }else{
+                	var post_data = {'rate_value': rate_value, 'comment': comment || '', 'products_id': products_id}
+                	console.log(post_data)
+	                $.ajax({
+	                    type: 'POST',
+	                    url: 'http://localhost:3000/products/rate',
+	                    data: {data: post_data},
+	                    dataType: 'application/json',
+	                    success: function(data) {
+	                        console.log('success');
+	                        location.reload();
+	                    },
+	                    error: function(e){
+	                        $('div.message_div').show();
+	                        $('div.message_div').html('You have successfully rated the item.').css({
+	                            'position': 'fixed',
+	                            'top': '0',
+	                            'left': '0',
+	                            'z-index': '999',
+	                            'width': '100%',
+	                            'height': '50px',
+	                            'background-color': '#dff0d8',
+	                            'color': '#3c763d',
+	                            'border-color': '#d6e9c6',
+	                            'text-align': 'center',
+	                            'padding': '5px',
+	                        }).delay(1000).fadeOut();
+	                        location.reload();
+	                        console.log(e);
+	                    }
+	                });
+				}
+            });
+
+
+      });
+    </script>
 </body>
 </html>
