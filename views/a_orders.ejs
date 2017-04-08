@@ -48,112 +48,105 @@ overflow-y: scroll;
 <h4 class='page_header'> All Orders </h4>
 <% if (typeof orders !== 'undefined' && orders.length > 0) { %>
 <div class="order_container">
-	<%for(var i=0; i < orders.length; i++) {%>
+<%for(var i=0; i < orders.length; i++) {%>
+	<%if( typeof total_amount[orders[i].id] != 'undefined') {%>
 		<div class="orders">
-		<div class='order_header'>
-			<div class='row'>
-				<div class='o_date'>
-					<div class='o_title'>
-						ORDERED DATE
+			<div class='order_header'>
+				<div class='row'>
+					<div class='o_date'>
+						<div class='o_title'>
+							ORDERED DATE
+						</div>
+						<div class='o_value'>
+							<%= moment(orders[i].created_at).format( 'MMM-DD-YYYY') %>
+						</div>
 					</div>
-					<div class='o_value'>
-						<%= moment(orders[i].created_at).format( 'MMM-DD-YYYY') %>
+					<div class='o_item_total'>
+						<div class='o_title'>
+							ITEMS TOTAL
+						</div>
+						<div class='o_value'>
+							$<%= total_amount[orders[i].id].toFixed(2)%>
+						</div>
 					</div>
+					<div class='o_shipping_charge'>
+						<div class='o_title'>
+							SHIPPING CHARGE
+						</div>
+						<div class='o_value'>
+							$10.00
+						</div>
+					</div>
+					<div class='o_total'>
+						<div class='o_title'>
+							TOTAL CHARGE
+						</div>	
+						<div class='o_value'>
+							$<%= (total_amount[orders[i].id] + 10.00).toFixed(2)%>
+						</div>
+					</div>
+					<div class='o_address'>
+						<div class='o_title'>
+							SHIP TO
+						</div>
+						<div class='o_value'>
+						<p>
+							<%- orders[i].cust_name%>
+						</p>
+						<p>
+							<%- orders[i].delivery_address%>
+						</p>
+						</div>
+					</div>
+					<div class='o_cc'>
+						<div class='o_title'>
+							CC DETAILS
+						</div>
+						<div class='o_value'>
+						<p>
+							<%- orders[i].cc_number%>
+						</p>
+						<p>
+							<%- orders[i].cc_date%>
+						</p>
+						<p>
+							<%- orders[i].cc_code%>
+						</p>
+						</div>
+					</div>
+					
 				</div>
-				<div class='o_item_total'>
-					<div class='o_title'>
-						ITEMS TOTAL
-					</div>
-					<div class='o_value'>
-						$<%= total_amount[orders[i].id].toFixed(2)%>
-					</div>
-				</div>
-				<div class='o_shipping_charge'>
-					<div class='o_title'>
-						SHIPPING CHARGE
-					</div>
-					<div class='o_value'>
-						$10.00
-					</div>
-				</div>
-				<div class='o_total'>
-					<div class='o_title'>
-						TOTAL CHARGE
-					</div>
-					<div class='o_value'>
-						$<%= (total_amount[orders[i].id] + 10.00).toFixed(2)%>
-					</div>
-				</div>
-				<div class='o_address'>
-					<div class='o_title'>
-						SHIP TO
-					</div>
-					<div class='o_value'>
-					<p>
-						<%- orders[i].cust_name%>
-					</p>
-					<p>
-						<%- orders[i].delivery_address%>
-					</p>
-					</div>
-				</div>
-				<div class='o_cc'>
-					<div class='o_title'>
-						CC DETAILS
-					</div>
-					<div class='o_value'>
-					<p>
-						<%- orders[i].cc_number%>
-					</p>
-					<p>
-						<%- orders[i].cc_date%>
-					</p>
-					<p>
-						<%- orders[i].cc_code%>
-					</p>
-					</div>
-				</div>
-				
 			</div>
-		</div>
-		<div class="detail_container" style="display:none;">
-		<%for(var j=0; j < order_items[orders[i].id].length; j++) {%>
-			<div class="order_detail">
-				<div class='wrapper'>
-					<div class='image_container'>
-						<img src="/images/liquors/<%=order_items[orders[i].id][j].image%>" class="img-responsive" alt=""/>
-					</div>
+			<div class="detail_container" style="display:none;">
+			<%for(var j=0; j < order_items[orders[i].id].length; j++) {%>
+				<div class="order_detail">
+					<div class='wrapper'>
+						<div class='image_container'>
+							<img src="/images/liquors/<%=order_items[orders[i].id][j].image%>" class="img-responsive" alt=""/>
+						</div>
 
-					<div class = 'item_description'>
-								<div id='name' class='i_detail'>
-									<p><%=order_items[orders[i].id][j].products_name %></p>
-									</div>
-									<div id='price' class='i_detail'>
-										<p>$<%=order_items[orders[i].id][j].products_price%></p>
-									</div>
-									<div id='volume' class='i_detail'>
-										<p><%=order_items[orders[i].id][j].volume %> </p>
-									</div>
-									<div id='qty' class='i_detail'>
-										<p>qty: <%=order_items[orders[i].id][j].quantity%></p>
-									</div>
+						<div class = 'item_description'>
+									<div id='name' class='i_detail'>
+										<p><%=order_items[orders[i].id][j].products_name %></p>
+										</div>
+										<div id='price' class='i_detail'>
+											<p>$<%=order_items[orders[i].id][j].products_price%></p>
+										</div>
+										<div id='volume' class='i_detail'>
+											<p><%=order_items[orders[i].id][j].volume %> </p>
+										</div>
+										<div id='qty' class='i_detail'>
+											<p>qty: <%=order_items[orders[i].id][j].quantity%></p>
+										</div>
+						</div>
 					</div>
 				</div>
-				<!-- <div class='re_wrapper'>
-					<div class='reorder_or_rate'>
-						<span class='add_it'>
-							<a class="add_cart" href="">ADD TO CART AGAIN</a>
-						</span>
-						<span class='rate_it'>
-							<a class="o_rate" href="#">RATE THIS ITEM</a>
-						</span>
-					</div>
-				</div> -->	
+				<%}%>
 			</div>
-			<%}%>
-		</div>
 		</div>
 	<%}%>
+<%}%>
+</div>
 <%} else { %>
 	<div class='no_order'>
 		<p> YOU HAVE NO ORDERS SO FAR.
