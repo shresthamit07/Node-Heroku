@@ -8,6 +8,10 @@ var session = require('express-session');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
+var fs = require('fs-extra');
+let busboy = require('connect-busboy');
+app.use(busboy());
+
 // var moment = require('moment');
 app.use(flash());
 var bodyParser = require('body-parser');

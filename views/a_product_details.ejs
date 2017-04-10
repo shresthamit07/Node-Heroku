@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/t_register.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/js/t_register.js"></script>
+	<script src="/js/t_cartview.js"></script>
+	<script src="/js/t_order.js"></script>
+	<link rel='stylesheet' href='/css/t_order.css'>
+	<link rel='stylesheet' href='/css/admin_page.css'>
+	<%include a_header.ejs%>
+	<style type="text/css">
+	#i_img{
+    	float: left;
+	}
+	#i_description{
+		width: 100%;
+		height: 150px;
+	}
+	</style>
+ </head>
+<body>
+
+<div class="reg-form">
+		<div class="container">
+			<div class="reg">
+				<h4 class='topic'> Product Details</h4>
+				<br/>
+				 <form id='add_product_form' action='/admin/products/<%=item_details.id%>/update' method='post'>
+				 <div class='col-md-2'>
+					<ul id='i_img'>
+						<li><img src="/images/liquors/<%=item_details.image%>" alt="" class="img-responsive" /></li>
+						<li><a style="font-size: 13px;" href='/admin/products/<%=item_details.id%>/change_image'>Change Image</a></li>
+					</ul>
+				</div>
+				<div class='col-md-8'>
+					<ul>
+						<li class="text-info">Product ID: </li>
+						<li class="text-info"><%=item_details.id%> </li>
+					 </ul>			
+					<ul>
+						<li class="text-info">SKU:</li>
+						<li class="text-info"><%=item_details.sku%> </li>
+					</ul>
+					<ul>
+						<li class="text-info">Name:</li>
+						<li><input type="text" value="<%=item_details.name%>" title = 'Product Name' name='p_name' required oninvalid="this.setCustomValidity()"></li>
+					</ul>						
+					<ul>
+						<li class="text-info">Category: </li>
+						<li><input type="text" value="<%=item_details.category%>" title = 'Product Category' name='p_category' required oninvalid="this.setCustomValidity()"></li>
+					 </ul>			
+					<ul>
+						<li class="text-info">Type:</li>
+						<li><input type="text" value="<%=item_details.type%>" title = 'Product Type' name='p_type' required oninvalid="this.setCustomValidity()"></li>
+					</ul>
+					<ul>
+						<li class="text-info">Country:</li>
+						<li><input type="text" value="<%=item_details.country%>" title = 'Product Type' name='p_country' required oninvalid="this.setCustomValidity()"></li>
+					</ul>
+					<ul>
+						<li class="text-info">Price:</li>
+						<li><input type="text" value="<%=item_details.price%>" title = 'Product Price' name='p_price' required oninvalid="this.setCustomValidity()"></li>
+					</ul>						
+					<ul>
+						<li class="text-info">Volume:</li>
+						<li><input type="text" value="<%=item_details.volume%>" title = 'Product Volume' name='p_volume' required oninvalid="this.setCustomValidity()"></li>
+					</ul>						
+					<ul>
+						<li class="text-info">Available:</li>
+						<li><input type="text" value="<%=item_details.quantity%>" title = 'Product Quantity' name='p_qty' required oninvalid="this.setCustomValidity()"></li>
+					</ul>	
+					<ul>
+						<li class="text-info">Description:</li>
+						<li><textarea  id='i_description' title = 'Product Description' name='p_description' required oninvalid="this.setCustomValidity()"><%=item_details.description%></textarea></li>
+					</ul>
+					</br>
+					<input type="submit" value="Save Changes" id='save_changes'>
+				</div>												
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
