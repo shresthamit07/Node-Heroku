@@ -106,6 +106,9 @@ router.get('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res){
   req.logout();
+  if(res.cookie('item_details') != undefined){
+  	res.clearCookie('item_details');
+  }
   res.redirect('/');
 });
 
@@ -149,7 +152,6 @@ passport.use(new LocalStrategy({
 ));
 
 var validPassword = function(password, hashFromDB){
-	console.log(password);
 	return bcrypt.compareSync(password, hashFromDB);
 }
 

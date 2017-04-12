@@ -128,8 +128,6 @@ var save_ranking_to_db = function(person, recomm_hash){
 
 var calculate_pearson_score = function(prefs, u1, u2){
 
-	//exclude products that has already been rated by the given user
-	// var items = find_recommendable_products()
 
 	//for each item in items calculate pearson correlation with each user in similar_users
   var si = [];

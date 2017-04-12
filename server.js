@@ -19,7 +19,7 @@ var validator = require('express-validator');
 app.use(bodyParser());
 app.use(validator());
 
-app.use(session({ secret: 'anything',
+app.use(session({ secret: 'liquorzonesecret',
     resave: true,
     saveUninitialized: true,
     cookie : {httpOnly: false, secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours 

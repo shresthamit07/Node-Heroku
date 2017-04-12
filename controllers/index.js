@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
         	items = result.rows
         	console.log("session auth" + req.isAuthenticated());
           if(req.isAuthenticated()){
-            client.query('SELECT * from products p inner join recommendations r on (r.products_id = p.id and r.users_id = $1) order by r.weighted_score desc', [req.user.id], function(err, r_result){
+            client.query('SELECT p.* from products p inner join recommendations r on (r.products_id = p.id and r.users_id = $1) order by r.weighted_score desc', [req.user.id], function(err, r_result){
               recommended_items = r_result.rows;
             // client.query('SELECT * from products where id in (SELECT products_id from recommendations where users_id = $1 order by weighted_score desc)',[req.user.id], function (err, r_result) {
               client.query('SELECT * from ratings', function (err, rate_result) {
