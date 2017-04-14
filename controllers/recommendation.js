@@ -184,10 +184,4 @@ function extend(target) {
     return target;
 }
 
-// select distinct(users_id) from ratings;
-
-// recommendation for user id =8
-// select products_id from ratings where users_id=8;
-// select users_id from ratings where products_id in (53,54,58,60);
-// select distinct(users_id) from ratings where products_id in (53,54,58,60);
-// select products_id from ratings where users_id = 9 and products_id in (select products_id from ratings where users_id = 8);
+module.exports = router

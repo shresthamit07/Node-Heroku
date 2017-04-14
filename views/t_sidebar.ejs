@@ -8,6 +8,31 @@
 <div class="clearfix"> </div>
 	<div class="col-md-3 products-grid-lft">
 		<div class="w_sidebar">
+		<section  class="sky-form">
+			<h4>Categories</h4>
+			<div class="col col-4">
+			<%if(typeof p_category != 'undefined') {%>
+				<% var names = p_category.names; %>
+				<% for(var i=0; i < names.length; i++) { %>
+					<label class="checkbox"><a href="/products/<%=names[i].category.split(' ').join('_')%>"><%=names[i].category%></a>
+					</label>
+				<%}%>
+				<%}%>
+			</div>
+		</section>
+		<section  class="sky-form">
+			<h4>Wine Types</h4>
+			<div class="col col-4">
+			<%if(typeof p_type != 'undefined') {%>
+				<% var types = p_type.types; %>
+				<% for(var i=0; i < types.length; i++) { %>
+					<label class="checkbox"><a href="/products/type/<%=types[i].type.split(' ').join('_')%>"><%=types[i].type%></a>
+					</label>
+				<%}%>
+				<%}%>
+			</div>
+		</section>
+		
 			<section  class="sky-form">
 				<h4>Country</h4>
 				<!-- <div class="row1 scroll-pane"> -->
