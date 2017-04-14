@@ -52,8 +52,8 @@ CREATE TABLE orders (
 
 CREATE TABLE orders_products (
     id SERIAL NOT NULL primary key unique,
-    orders_id int NOT NULL,
-    products_id int NOT NULL,
+    orders_id REFERENCES orders (id),
+    products_id int REFERENCES products (id),
     products_name varchar(200),
     products_price numeric(5,2) NOT NULL,
     quantity int NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE orders_products (
 
 CREATE TABLE products_purchase (
     id SERIAL NOT NULL primary key unique,
-    products_id int NOT NULL,
+    products_id int REFERENCES products (id),
     purchase_count int NOT NULL,
     category varchar(50) NOT NULL,
     created_at timestamp default current_timestamp NOT NULL,
@@ -74,8 +74,8 @@ CREATE TABLE products_purchase (
 
 CREATE TABLE ratings (
     id SERIAL NOT NULL primary key unique,
-    products_id int NOT NULL,
-    users_id int NOT NULL,
+    products_id int REFERENCES products (id),
+    users_id int REFERENCES users (id),
     r_value int NOT NULL,
     r_comment text,
     created_at timestamp default current_timestamp NOT NULL,
@@ -84,8 +84,8 @@ CREATE TABLE ratings (
 
 CREATE TABLE recommendations (
     id SERIAL NOT NULL primary key unique,
-    users_id int NOT NULL,
-    products_id int NOT NULL,
+    users_id int REFERENCES users (id),
+    products_id int REFERENCES products (id),
     weighted_score numeric(5,2) NOT NULL,
     created_at timestamp default current_timestamp NOT NULL,
     updated_at timestamp default current_timestamp NOT NULL
