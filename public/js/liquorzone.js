@@ -1,11 +1,13 @@
 $(document).ready(function(c) {
     $("#contact_form").submit(function(e) {
+            e.preventDefault();
     		$('div.message_div').hide();
 
     	    $.ajax({
     	           type: "POST",
     	           url: 'http://localhost:3000/contact_message',
     	           data: $("#contact_form").serialize(), // serializes the form's elements.
+
     	           success: function(data) {
     	                $('div.message_div').show();
                         $('div.message_div').html('Thank you for sending us message.').css({
@@ -21,7 +23,7 @@ $(document).ready(function(c) {
                             'text-align': 'center',
                             'padding': '5px',
                         }).delay(10000).fadeOut();
-    	                window.location.href = 'http://localhost:3000/contact_us';
+    	                window.location.href = window.location.pathname ;
     	            },
     	            error: function(e){
     	            	$('div.message_div').show();
@@ -39,9 +41,8 @@ $(document).ready(function(c) {
                             'padding': '5px',
                         }).delay(10000).fadeOut();
     	                console.log(e);
-    	            	window.location.href = 'http://localhost:3000/contact_us';
+    	            	window.location.href = window.location.pathname;
     	            }
     	         });
-    	     e.preventDefault();
     	 });
 });

@@ -28,7 +28,7 @@ router.post('/contact_message', function(req, res) {
 					pass: 'liquorzone07'
 					}
 					});
-	var data = [{name: 'abc'}, {name: 'apple'}]
+	var data = [req.body]
 		ejs.renderFile(contact_message_template, {data}, (err, html) => {
 					      if (err) console.log(err); // Handle error
 
@@ -39,6 +39,7 @@ router.post('/contact_message', function(req, res) {
 					        html: html
 					      })
 					    });
+    res.redirect('/contact_us');
 });
 
 router.get('/about_us', function(req, res, next) {

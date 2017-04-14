@@ -6,9 +6,15 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
     <style>
-			.logo {
-				background-color: steelblue;
+			.logo{
+				background-color: #abc;
 				width: 400px;
+			}
+			h3{
+				text-align: center;
+			}
+			p{
+				padding: 10px;
 			}
 
 		</style>
@@ -17,11 +23,15 @@
 <div class="header_top">
 	<div class="container">
 		<div class="logo">
-		 	<a href="/localhost:3000">LiquorZone.com</a>
+		 	<a href="/localhost:3000"><h3>LiquorZone.com</h3></a>
+
 		 	<% for(var i=0; i < data.length; i++) { %>
-		 	<p><%= data[i].name%></p>
+		 	<p>Customer Name: <%= data[i].c_name%></p>
+		 	<p>Customer Email: <%= data[i].c_email%></p>
+		 	<p>Customer Phone: <%= data[i].c_phone%></p>
+		 	<p>Customer Message: <%= data[i].c_msg%></p>
 		 	<%}%>
-		</div>
+		 </div>
 	</div>
 </div>
 </body>
