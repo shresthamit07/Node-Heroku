@@ -113,6 +113,8 @@ app.get('/design', function(req, res){
 	res.render(path + 'index');
 });
 
-app.listen(3000, function() {
-  console.log('listening on 3000')
+var port = process.env.PORT || 8080;
+
+app.listen(port, function() {
+  console.log('listening on ' + port)
 });
