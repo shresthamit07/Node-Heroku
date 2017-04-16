@@ -24,7 +24,6 @@ router.get('/', function(req, res) {
   if(req.user != undefined && req.user.is_admin){
     console.log('admin here.')
     res.redirect('/admin')
-    // res.render('admin_template_design.ejs');
   }else{
   	console.log("session_passport")
   	console.log(req.session);
@@ -36,15 +35,13 @@ router.get('/', function(req, res) {
         	console.log("session auth" + req.isAuthenticated());
           if(req.isAuthenticated()){
             client.query('SELECT p.* from products p inner join recommendations r on (r.products_id = p.id and r.users_id = $1) order by r.weighted_score desc', [req.user.id], function(err, r_result){
-              recommended_items = r_result.rows;
-            // client.query('SELECT * from products where id in (SELECT products_id from recommendations where users_id = $1 order by weighted_score desc)',[req.user.id], function (err, r_result) {
+              recommended_items = r_result.rows;          
               client.query('SELECT * from ratings', function (err, rate_result) {
                 ratings_value = rate_result.rows;
                 ratings_in_hash_format = get_rating_hash(ratings_value)
               if(recommended_items.length > 0){
       		      res.render('t_index.ejs',{data: items, recommended_items: recommended_items, ratings: ratings_in_hash_format, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name});
               }else{
-                // client.query('SELECT * from products where id in(SELECT products_id from products_purchase order by purchase_count desc LIMIT 10)', function (err, r_result) {
                   client.query('select p.*, a.products_id, a.purchase_count from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc', function (err, r_result) {
                   recommended_items = r_result.rows;   
                   res.render('t_index.ejs',{data: items, recommended_items: recommended_items, ratings: ratings_in_hash_format, session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name}); 
@@ -55,7 +52,6 @@ router.get('/', function(req, res) {
           }
           else{
             //most purchased item
-            // client.query('SELECT * from products where id in(SELECT products_id from products_purchase order by purchase_count desc LIMIT 10)', function (err, r_result) {
             client.query('select p.*, a.products_id, a.purchase_count from products p inner join products_purchase a on (a.products_id = p.id) order by a.purchase_count desc', function (err, r_result) {
               recommended_items = r_result.rows;
               client.query('SELECT * from ratings', function (err, rate_result) {
@@ -69,17 +65,6 @@ router.get('/', function(req, res) {
 
   	});
   }
- 
-
-  //working code
-
-
-	// if(!isEmpty(req.session.passport)){
-	// 	params = {data: [], session: true, id: req.session.passport.user.id, name: req.session.passport.user.first_name}
-	// }
-
-	//end of working code
-  // res.render('index', params);
 })
 
 

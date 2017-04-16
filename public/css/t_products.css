@@ -51,4 +51,7 @@
     margin-left: 270px;
     text-align: center;
 }
+.footer{
+		clear: both;
+	}
 /* end of search*/

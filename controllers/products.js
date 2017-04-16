@@ -12,6 +12,10 @@ var client = new pg.Client(connectionString);
 client.connect();
 
 router.get('/products/:category', function(req, res, next) {
+  if(req.user != undefined && req.user.is_admin){
+    console.log('admin here.')
+    res.redirect('/admin')
+  }else{
   var items = [];
   var category = req.params.category;
   var countries = [];
@@ -76,9 +80,14 @@ router.get('/products/:category', function(req, res, next) {
         });
     }
   }
+}
 });
 
 router.get('/products/type/:p_type', function(req, res, next) {
+  if(req.user != undefined && req.user.is_admin){
+    console.log('admin here.')
+    res.redirect('/admin')
+  }else{
   var items = [];
   var pr_type = req.params.p_type;
   var countries = [];
@@ -147,11 +156,15 @@ router.get('/products/type/:p_type', function(req, res, next) {
         });
     }
   }
+}
 });
 
 
 router.get('/products/:category/:id', function(req, res, next) {
-  
+  if(req.user != undefined && req.user.is_admin){
+    console.log('admin here.')
+    res.redirect('/admin')
+  }else{
   var item_details = [];
   var item_id = req.params.id;
   console.log(item_id);
@@ -198,6 +211,7 @@ router.get('/products/:category/:id', function(req, res, next) {
       }
     })
   }
+}
 });
 
 router.post('/products/add_to_cart', function(req, res){
@@ -227,6 +241,10 @@ router.post('/products/update_qty', function(req, res){
 
 
 router.get('/mycart', function(req, res, next){
+  if(req.user != undefined && req.user.is_admin){
+    console.log('admin here.')
+    res.redirect('/admin')
+  }else{
   var cart_items = [];
   console.log(cart_items);
   if(req.cookies.item_details != undefined){
@@ -240,6 +258,7 @@ router.get('/mycart', function(req, res, next){
     console.log(cart_items)
     res.render('t_cartview.ejs', {data: cart_items});
   }
+}
 })
 
 router.post('/products/rate', function(req, res){

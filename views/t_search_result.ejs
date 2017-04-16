@@ -27,58 +27,62 @@
      <% include t_header.ejs %>
  <style>
 	#rating{
-	    margin-left: 92px;
+	    margin-left: 74px;
 	}
-
-</style>
- </head>
-<div class='sidebar'>
-	<% include t_sidebar.ejs %>
-</div>
-<!-- products -->
-<%if(typeof search_param != 'undefined') {%>
-	<div class='s_result'>
-		Search Results for: <span class='s_param'><%= search_param%></span>
+	.main_content{
+		min-height: 100%;
+	}
+	</style>
+</head>
+<body>
+<div class='main_content'>
+	<div class='sidebar'>
+		<% include t_sidebar.ejs %>
 	</div>
-<%}%>
-<%if(data.length > 0) {%>
-	<div class="products">
-		<div class="search_products">
-		<div class="container">
-			<div class="products-grids">
-				<div class="col-md-8 products-grid-left">
-					<div class="products-grid-lft">
-					<% for(var i=0; i < data.length; i++) { %>
-						<div class="products-grd">
-							<div class="p-one simpleCart_shelfItem prd">
-								<a href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>">
-										<img src="/images/liquors/<%=data[i].image%>" alt="" class="img-responsive" />
-								</a>
-								<div>
-									<span class='volume'><%=data[i].volume%></span>
-								</div>
-								<%rvalue = ratings[data[i].id] || 0%>
-								<div id='rating' class='i_detail'>
-									 <div class="readonly_rateyo" data-rvalue =<%=rvalue%>></div>
-								</div>
-								<div class='p_name' title='<%= data[i].name%>'><h4><%= data[i].name%></h4></div>
-								<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"><i></i><span class=" item_price valsa"> $<%= data[i].price%></span></a></p>
-							</div>	
+<!-- products -->
+	<%if(typeof search_param != 'undefined') {%>
+		<div class='s_result'>
+			Search Results for: <span class='s_param'><%= search_param%></span>
+		</div>
+	<%}%>
+	<%if(data.length > 0) {%>
+		<div class="products">
+			<div class="search_products">
+			<div class="container">
+				<div class="products-grids">
+					<div class="col-md-8 products-grid-left">
+						<div class="products-grid-lft">
+						<% for(var i=0; i < data.length; i++) { %>
+							<div class="products-grd">
+								<div class="p-one simpleCart_shelfItem prd">
+									<a href="/products/<%=data[i].category.split(' ').join('_')%>/<%=data[i].id%>">
+											<img src="/images/liquors/<%=data[i].image%>" alt="" class="img-responsive" />
+									</a>
+									<div>
+										<span class='volume'><%=data[i].volume%></span>
+									</div>
+									<%rvalue = ratings[data[i].id] || 0%>
+									<div id='rating' class='i_detail'>
+										 <div class="readonly_rateyo" data-rvalue =<%=rvalue%>></div>
+									</div>
+									<div class='p_name' title='<%= data[i].name%>'><h4><%= data[i].name%></h4></div>
+									<p><a class="item_add" data-itemdetails='<%=JSON.stringify(prepareDetails(data[i]))%>' href="<%=url%>"><i></i><span class=" item_price valsa"> $<%= data[i].price%></span></a></p>
+								</div>	
+							</div>
+							<% } %>
+							<div class="clearfix"> </div>
 						</div>
-						<% } %>
-						<div class="clearfix"> </div>
 					</div>
 				</div>
 			</div>
+			</div>
 		</div>
+	<%} else {%>
+		<div class='no_result'>
+			<p> No Result Found!! Try another search.
 		</div>
-	</div>
-<%} else {%>
-	<div class='no_result'>
-		<p> No Result Found!! Try another search.
-	</div>
-<%}%>
-
+	<%}%>
+</div>
 <script type="text/javascript" src="/js/jquery.rateyo.js"></script>
 <script>
 
@@ -105,7 +109,12 @@
 
 
       });
-    </script>	
-
+   </script>	
+ <div class="footer">
+	copyright @ liquorzone.com 2017
+	<div class="">
+		<div class="clearfix"></div>
+	</div>
+</div>
 </body>
 </html>

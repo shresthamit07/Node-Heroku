@@ -13,9 +13,13 @@ var client = new pg.Client(connectionString);
 client.connect();
 
 app.get('/rec', function(req, res){
-    // res.clearCookie("item_details");
-    get_recommendation()
-	res.redirect('/admin')
+	if(req.user != undefined && req.user.is_admin){
+		get_recommendation()
+		res.redirect('/admin')
+	}
+	else{
+    	res.render('404');
+  	}
 });
 
 var get_recommendation = function(){

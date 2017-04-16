@@ -47,6 +47,7 @@ router.get('/admin',function(req, res){
 
 //display all orders
 router.get('/admin/orders', function(req, res) {// render the page and pass in any flash data if it exists
+	if(req.user != undefined && req.user.is_admin){
 	var results = [];
 	var id_wise_item_hash = {};
 	var total_amount_hash = {};
@@ -69,27 +70,42 @@ router.get('/admin/orders', function(req, res) {// render the page and pass in a
 				res.render('a_orders', {orders: []});
 			}
 		});
+	}else{
+		res.render('404')
+	}
 });
 
 router.get('/admin/products', function(req, res) {
+	if(req.user != undefined && req.user.is_admin){
 	var query = client.query("SELECT * from products order by created_at desc limit 30",function(err, result){
 			if(err) { console.log('error');return next(err)}
 			results = result.rows
 			res.render('a_products', {items: results});
 		})
+	}else{
+		res.render('404')
+	}
 })
 
 router.get('/admin/products/:id', function(req, res) {
+	if(req.user != undefined && req.user.is_admin){
 	var item_id = req.params.id;
 	var query = client.query("SELECT * from products where id =$1", [item_id],function(err, result){
 			if(err) { console.log('error');return next(err)}
 			results = result.rows
 			res.render('a_product_details', {item_details: results[0]});
 		})
+	}else{
+		res.render('404')
+	}
 })
 
 router.get('/admin/new_product', function(req, res) {
-	res.render('a_add_product');
+	if(req.user != undefined && req.user.is_admin){
+		res.render('a_add_product');
+	}else{
+		res.render('404')
+	}
 })
 
 router.post('/admin/new_product', function(req, res) {
@@ -166,6 +182,7 @@ router.post('/admin/products/:id/update', function(req, res) {
 });
 
 router.get('/admin/products/:id/change_image', function(req, res) {
+	if(req.user != undefined && req.user.is_admin){
 	var p_id = req.params.id
 	var query = client.query("SELECT id, name, image from products where id = $1",[p_id], function(err, i_result){
 		if(err) { console.log('error');return next(err)}
@@ -177,6 +194,9 @@ router.get('/admin/products/:id/change_image', function(req, res) {
 				res.redirect('/admin/products')
 			}
 	})
+	}else{
+		res.render('404')
+	}
 })
 
 router.post('/admin/products/:id/change_image', function(req, res) {
@@ -204,6 +224,41 @@ router.post('/admin/products/:id/change_image', function(req, res) {
 		})
 })
 
+router.get('/admin/account', function(req, res) {// render the page and pass in any flash data if it exists
+	if(req.user != undefined && req.user.is_admin){
+		var user_email = req.user.email
+		var query = client.query("SELECT * from users where email = $1", [user_email],function(err, result){
+			var profile_details = result.rows;
+			res.render('a_account.ejs', {data: profile_details[0], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+		});
+	}else{
+		res.render('404');
+	}
+	
+});
+
+router.post('/update_account', function(req, res) {
+	var results = [];
+	var name = req.body.first_name;
+
+	//validate the presence of every field
+	req.checkBody('first_name', 'First Name is required').notEmpty();
+	req.checkBody('last_name', 'Last Name is required').notEmpty();
+	req.checkBody('m_number', 'Phone number is required').notEmpty();
+	req.checkBody('address', 'Address is required').notEmpty();
+
+	var errors = req.validationErrors();
+	if(errors){
+		console.log(errors)
+		res.render('a_account', {errors: errors})
+	}
+	else{
+
+	  var user = req.body;
+	    client.query('UPDATE users SET first_name=($1), last_name=($2), phone=($3), address=($4) where email=($5)',[user.first_name, user.last_name, user.m_number, user.address, req.user.email]);
+	    res.redirect('/admin/account')
+	 }
+});
 
 // returns hash {'1' => [orders with id 1], '2'=> [orders with id 2]}
 var id_associated_orders_item = function(data){

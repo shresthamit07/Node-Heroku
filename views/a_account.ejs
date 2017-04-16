@@ -1,0 +1,92 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel='stylesheet' href='/css/t_order.css'>
+    <link href="/css/admin_page.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/t_order.js"></script>
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="/js/move-top.js"></script>
+    <script type="text/javascript" src="/js/easing.js"></script>
+    <script src="/js/t_header.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){     
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+         setInterval(function() {
+                  localStorage.clear();
+                }, 60000); 
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- start menu -->
+    <link href="/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/js/megamenu.js"></script>
+    <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+    <script src="/js/menu_jquery.js"></script>
+    <script src="/js/simpleCart.min.js"> </script>
+    <link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+
+    <%include a_header.ejs%>
+ </head>
+<title></title>
+
+	<div class="reg-form">
+		<div class="container">
+			<div class="reg">
+				<h3>Hello, <%=name%></h3>
+				<h4 class='topic'> Personal Details</h4>
+				<br/>
+				<% if (typeof error_msg !== 'undefined') { %>
+					<div class="alert alert-danger"><%= error_msg%></div>
+				<% } %>
+				<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+				<% for(var i=0; i < errors.length; i++) { %>
+						<div class="alert alert-danger"><%= errors[i].msg%></div>
+					<% } %>
+				<% } %>
+
+				 <form id='update_form' action='/update_account' method='post'>
+					<ul id='form_contents'>
+						<li class="text-info">First Name: </li>
+						<li><input type="text" value="<%=data.first_name%>" title = 'Please enter first name' name='first_name' required oninvalid="this.setCustomValidity()"></li>
+					</ul>
+					<ul>
+						<li class="text-info">Last Name: </li>
+						<li><input type="text" value="<%=data.last_name%>" title = 'Please enter last name' name='last_name' required></li>
+					 </ul>			
+					<ul>
+						<li class="text-info">Mobile Number:</li>
+						<li><input type="number" value="<%=data.phone%>"  title = 'Please enter valid mobile number' name='m_number' required></li>
+					</ul>
+					<ul>
+						<li class="text-info">Address Line:</li>
+						<li><input class='user_address' placeholder='Enter full address with zip code' type="text" value="<%=data.address%>"  title = 'Please enter address' name='address' required></li>
+					</ul>						
+					<input type="checkbox" name="agreement" id="agree" required /> By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a>
+					</br>
+					<input type="submit" value="Update" id='register_btn'>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+<div class="footer">
+	copyright @ liquorzone.com 2017
+	<div class="">
+		<div class="clearfix"></div>
+	</div>
+</div>
+</body>
+</html>

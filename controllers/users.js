@@ -20,7 +20,16 @@ var client = new pg.Client(connectionString);
 client.connect();
 
 router.get('/register', function(req, res) {// render the page and pass in any flash data if it exists
+	if(req.user != undefined ){
+		if(req.user.is_admin){
+    		console.log('admin here.')
+    		res.redirect('/admin')
+    	}else{
+    		res.redirect('/')
+    	}
+  }else{
 	res.render('t_register');
+	}
 });
 
 router.post('/register', function(req, res) {
@@ -93,9 +102,10 @@ router.get('/login', function(req, res, next) {
 		if(req.user.is_admin)
 		{
 			console.log('admin')
-			return res.render('t_index.ejs', {data: [], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+			return res.render('a_index.ejs', {data: [], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
 		}else{
-			return res.render('t_index.ejs', {data:[], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
+			return res.redirect('/')
+			// return res.render('t_index.ejs', {data:[], session: req.isAuthenticated(), id: req.user.id, name: req.user.first_name})
 		}
 	}
 	else{

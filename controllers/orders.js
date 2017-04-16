@@ -19,7 +19,12 @@ client.connect();
 
 
 router.get('/checkout', function(req, res, next) {
+	if(req.user != undefined && req.user.is_admin){
+    console.log('admin here.')
+    res.redirect('/admin')
+  }else{
 	res.render('t_checkout');
+}
 })
 
 router.post('/checkout', function(req, res) {
