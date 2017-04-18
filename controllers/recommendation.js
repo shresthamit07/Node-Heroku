@@ -12,7 +12,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://postgres:testpa
 var client = new pg.Client(connectionString);
 client.connect();
 
-app.get('/rec', function(req, res){
+router.get('/rec', function(req, res){
 	if(req.user != undefined && req.user.is_admin){
 		get_recommendation()
 		res.redirect('/admin')
